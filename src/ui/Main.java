@@ -32,6 +32,7 @@ public class Main extends Application {
 /*
 		FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("WelcomeInicial.fxml"));
 		bankGui = new BankGUI(stage, bank);
+		
 		fxmlLoad.setController(bankGui);
 	Parent root = fxmlLoad.load();
 		Scene scene = new Scene(root);
