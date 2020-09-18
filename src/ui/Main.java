@@ -29,11 +29,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		// TODO Auto-generated method stub
-
+/*
 		FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("WelcomeInicial.fxml"));
 		bankGui = new BankGUI(stage, bank);
 		fxmlLoad.setController(bankGui);
-		Parent root = fxmlLoad.load();
+	Parent root = fxmlLoad.load();
 		Scene scene = new Scene(root);
 		scene.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
 		stage.setScene(scene);
@@ -42,6 +42,23 @@ public class Main extends Application {
 		stage.setMinWidth(1000);
         stage.setTitle("Bank");
 		stage.show();
+		*/
+		
+		FileInputStream fis = new FileInputStream("Images/bank.png");
+		  FXMLLoader f = new FXMLLoader(getClass().getResource("WelcomeInicial.fxml"));
+		    f.setController(this);
+		    Parent root = f.load();
+		    Scene sc = new Scene(root);
+		    stage.setScene(sc);
+		    stage.sizeToScene();
+		    sc.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
+			stage.setScene(sc);
+			stage.centerOnScreen();
+			//stage.setMinHeight(600);
+			//stage.setMinWidth(1000);
+			stage.getIcons().add(new Image(fis));
+			stage.setTitle("All Stock");
+		    stage.show();
 	}
 
 }
