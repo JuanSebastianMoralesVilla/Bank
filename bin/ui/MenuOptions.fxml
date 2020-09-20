@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="408.0" fitWidth="584.0" layoutX="-13.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Images/verde%20menta.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="437.0" layoutY="293.0" text="PAGO TARJETA">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="123.0" fitWidth="142.0" layoutX="239.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../Images/bank.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="BtUser" alignment="CENTER" layoutX="505.0" layoutY="14.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="69.0" styleClass="btUser" />
+      <Label layoutX="115.0" layoutY="293.0" text="RETIRO">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="256.0" layoutY="293.0" text="CONSIGNACIÓN">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="btconsignacion" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="85.0" layoutY="221.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt2" />
+      <Button fx:id="btPagoTarjeta" layoutX="433.0" layoutY="221.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt1" />
+      <Button fx:id="btRetiro" layoutX="256.0" layoutY="221.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt3" />
+   </children>
+</Pane>

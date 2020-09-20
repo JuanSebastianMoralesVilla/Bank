@@ -1,8 +1,6 @@
 package data_structures;
 
-import java.util.Comparator;
-
-public class PriorityQueue<T extends Comparator<T>> implements IQueue<T>{
+public class PriorityQueue<T extends Comparable<T>> implements IQueue<T>{
 	
 	private Elements<T> first;
 	
@@ -14,13 +12,13 @@ public class PriorityQueue<T extends Comparator<T>> implements IQueue<T>{
 		Elements<T> newElement = new Elements<T>(element);
 		if(first.getElement()==null) {
 			first = newElement;
-		}else if(first.getElement().compare(first.getElement(), element)<0){
+		}else if(first.getElement().compareTo(element)<0){
 			newElement.setNext(first);
 			first = newElement;
 		}else {	
 			Elements<T> current = first;
 			if(current.getNext()==null) {
-				while(element.compare(element, current.getNext().getElement())>0) {
+				while(element.compareTo(current.getNext().getElement())>0) {
 					current = current.getNext();
 					if(current.getNext()==null) {
 						break;
