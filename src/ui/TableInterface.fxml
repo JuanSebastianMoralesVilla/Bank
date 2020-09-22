@@ -4,24 +4,33 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <TableView fx:id="Table1" layoutX="232.0" layoutY="87.0" prefHeight="237.0" prefWidth="302.0">
-        <columns>
-          <TableColumn fx:id="TcNombre" prefWidth="75.0" text="Nombre del cliente" />
-          <TableColumn fx:id="TcCedula" prefWidth="75.0" text="Cedula " />
-            <TableColumn fx:id="TcVinculacion" prefWidth="75.0" text="Vinculacion" />
-            <TableColumn fx:id="TcMonto" prefWidth="75.0" text="Monto" />
-        </columns>
-      </TableView>
-      <Button fx:id="BtSelecition" layoutX="85.0" layoutY="87.0" mnemonicParsing="false" text="Selection" textFill="#ff0f0f" />
-      <Button fx:id="btHeapsort" layoutX="85.0" layoutY="157.0" mnemonicParsing="false" text="Heapsort" />
-      <Button fx:id="btMergesort" layoutX="85.0" layoutY="225.0" mnemonicParsing="false" text="Merge Sort" />
-      <Button fx:id="btquicksort" layoutX="85.0" layoutY="287.0" mnemonicParsing="false" text="Quicksort" />
-      <Button fx:id="btatrasTable" layoutX="520.0" layoutY="361.0" mnemonicParsing="false" text="atras" />
-      <Separator layoutX="14.0" layoutY="64.0" prefHeight="3.0" prefWidth="568.0" />
-   </children>
-</Pane>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0">
+               <children>
+                  <TableView fx:id="Table1" layoutX="232.0" layoutY="87.0" prefHeight="237.0" prefWidth="302.0">
+                     <columns>
+                        <TableColumn fx:id="TcNombre" prefWidth="75.0" text="Nombre del cliente" />
+                        <TableColumn fx:id="TcCedula" prefWidth="75.0" text="Cedula " />
+                        <TableColumn fx:id="TcVinculacion" prefWidth="75.0" text="Vinculacion" />
+                        <TableColumn fx:id="TcMonto" prefWidth="75.0" text="Monto" />
+                     </columns>
+                  </TableView>
+                  <Button fx:id="BtSelecition" layoutX="85.0" layoutY="87.0" mnemonicParsing="false" text="Selection" textFill="#ff0f0f" />
+                  <Button fx:id="btHeapsort" layoutX="85.0" layoutY="157.0" mnemonicParsing="false" text="Heapsort" />
+                  <Button fx:id="btMergesort" layoutX="85.0" layoutY="225.0" mnemonicParsing="false" text="Merge Sort" />
+                  <Button fx:id="btquicksort" layoutX="85.0" layoutY="287.0" mnemonicParsing="false" text="Quicksort" />
+                  <Button fx:id="btatrasTable" layoutX="520.0" layoutY="361.0" mnemonicParsing="false" text="atras" />
+                  <Separator layoutX="14.0" layoutY="64.0" prefHeight="3.0" prefWidth="568.0" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
