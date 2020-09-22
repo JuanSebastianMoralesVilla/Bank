@@ -1,4 +1,4 @@
-//DiseÃ±o botones a utilizar
+/*diseño de los iconos botones a utilizar */
 
 .bt1{
 	-fx-background-image: url("../../Images/tarjetas.png");
@@ -35,3 +35,5 @@
         -fx-background-color: null;
         -fx-background-size: stretch;
 }
+
+
