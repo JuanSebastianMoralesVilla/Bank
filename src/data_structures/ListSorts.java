@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class ListSorts<T> {
+public class ListSorts {
 	
 	
-public  static <T> void selectionSort(List<T> array, Comparator<T> comparator){
+	public  static <T> void selectionSort(List<T> array, Comparator<T> comparator){
 		
 		for (int i = 0; i < array.size(); i++) {
 			int lower = i;
@@ -27,28 +27,30 @@ public  static <T> void selectionSort(List<T> array, Comparator<T> comparator){
 		int n = array.size()-1;
 		while(n>0) {
 			for (int i = (n-1)/2; i >=0; i--) {
-				int left = 2*i +1;
-				int right = 2*i +2;
-				int max=i;
-				if(left<n) {
-					if(comparator.compare(array.get(left), array.get(i))>0) {
-						max = left;
-					}
-				}
-				if(right<n) {
-					if(comparator.compare(array.get(right), array.get(max))>0) {
-						max = right;
-					}
-				}
-				if(max!=i) {
-					exchange(array,i,max);
-				}
+				heapifying(array,i,n,comparator);
 			}
 			exchange(array,0,n);
 			n--;
 		}
-		
-		
+	}
+	private static <T> void heapifying(List<T> array, int i,int size, Comparator<T> comparator) {
+		int left = 2*i +1;
+		int right = 2*i +2;
+		int max=i;
+		if(left<=size) {
+			if(comparator.compare(array.get(left), array.get(i))>0) {
+				max = left;
+			}
+		}
+		if(right<=size) {
+			if(comparator.compare(array.get(right), array.get(max))>0) {
+				max = right;
+			}
+		}
+		if(max!=i) {
+			exchange(array,i,max);
+			heapifying(array,max,size,comparator);
+		}
 	}
 	
 	public  static <T> void mergueSort(List<T> array, Comparator<T> comparator){
@@ -60,7 +62,6 @@ public  static <T> void selectionSort(List<T> array, Comparator<T> comparator){
 			mergueSortR(array,((start+end)/2)+1,end,comparator);
 		}
 		toCombine(array,start,(start+end)/2,end,comparator);
-		System.out.println(array.toString());
 	}
 	private static <T> void toCombine(List<T>array, int start, int middle, int end,Comparator<T> comparator) {
 		int i = start;
