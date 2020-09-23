@@ -14,7 +14,7 @@ public class Queue<T> implements IQueue<T>{
 			first = newElement;
 		}else {
 			Elements<T> current = first;
-			while(current.getNext()!=null) {
+			while(current.getNext() != null) {
 				current = current.getNext();
 			}
 			current.setNext(newElement);

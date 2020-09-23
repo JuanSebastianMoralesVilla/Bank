@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="408.0" prefWidth="608.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="408.0" fitWidth="584.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/verde%20menta.jpg" />
+               </image>
+            </ImageView>
+            <Label layoutX="216.0" layoutY="309.0" text="PAGO TARJETA">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="123.0" fitWidth="142.0" layoutX="227.0" layoutY="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Images/bank.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="BtUser" alignment="CENTER" layoutX="496.0" layoutY="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="69.0" styleClass="btUser" />
+            <Label layoutX="421.0" layoutY="301.0" text="RETIRO">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="40.0" layoutY="309.0" text="CONSIGNACIÓN">
+               <font>
+                  <Font name="System Bold Italic" size="12.0" />
+               </font>
+            </Label>
+            <Button fx:id="btconsignacion" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="398.0" layoutY="219.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt2" />
+            <Button fx:id="btPagoTarjeta" layoutX="216.0" layoutY="219.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt1" />
+            <Button fx:id="btRetiro" layoutX="43.0" layoutY="226.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt3" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

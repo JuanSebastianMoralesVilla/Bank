@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+
+<BorderPane fx:id="BorderPaint1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <bottom>
+      <Pane fx:id="mainPaneCreateUser" prefHeight="440.0" prefWidth="546.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnextUser" layoutX="256.0" layoutY="238.0" mnemonicParsing="false" onAction="#nextUser" text="Siguiente" />
+            <Label layoutX="170.0" layoutY="85.0" text="Nombre:" />
+            <TextField fx:id="txtName" layoutX="228.0" layoutY="81.0" />
+            <Label layoutX="170.0" layoutY="126.0" text="Apellido:" />
+            <TextField fx:id="txtLastName" layoutX="228.0" layoutY="122.0" />
+            <TextField fx:id="txtIDaddUser" layoutX="228.0" layoutY="161.0" />
+            <Label layoutX="188.0" layoutY="165.0" text="ID:" />
+            <ProgressBar layoutX="200.0" layoutY="344.0" prefWidth="200.0" progress="0.51" />
+            <ImageView fitHeight="112.0" fitWidth="133.0" layoutX="36.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true" styleClass="btBanco">
+               <image>
+                  <Image url="@../../Images/bank.png" />
+               </image>
+            </ImageView>
+            <RadioButton layoutX="239.0" layoutY="209.0" mnemonicParsing="false" text="Normal">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupoTipocliente" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton layoutX="313.0" layoutY="209.0" mnemonicParsing="false" text="Prioritario" toggleGroup="$grupoTipocliente" />
+            <Label layoutX="148.0" layoutY="209.0" text="Tipo de cliente:" />
+         </children>
+      </Pane>
+   </bottom>
+</BorderPane>
