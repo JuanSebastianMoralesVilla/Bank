@@ -1,4 +1,4 @@
-//DiseÃ±o botones a utilizar
+/*diseño de los iconos botones a utilizar */
 
 .bt1{
 	-fx-background-image: url("../../Images/tarjetas.png");
@@ -34,4 +34,93 @@
 	-fx-background-image: url("../../Images/bank.png");
         -fx-background-color: null;
         -fx-background-size: stretch;
+}
+
+.btShift{
+	-fx-background-image: url("../../Images/Select.png");
+        -fx-background-color: null;
+        -fx-background-size: stretch;
+}
+
+.btUser2{
+	-fx-background-image: url("../../Images/addUser.png");
+        -fx-background-color: null;
+        -fx-background-size: stretch;
+}
+.btTrabajador{
+	-fx-background-image: url("../../Images/Trabajador.png");
+        -fx-background-color: null;
+        -fx-background-size: stretch;
+}
+.btCancelar{
+	-fx-background-image: url("../../Images/cancelar.png");
+        -fx-background-color: null;
+        -fx-background-size: stretch;
+}
+.bt1:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.bt2:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.bt3:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btUser:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btSearch:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btSearch2:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btBanco:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btShift:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btUser2:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btTrabajador:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.Fondo{
+	/* Nepal theme from https://uigradients.com/#Nepal */
+	-fx-background-color : linear-gradient(to left,
+		#de6161,
+		#3c69f0
+	); 
+	
+	/* Sunset from https://uigradients.com/#Sunset */
+	-fx-background-color : linear-gradient(to right,
+		#0B486B,
+		#F56217
+	);
+}
+
+.Fields{
+	-fx-background-color: null;
+	-fx-prompt-text-fill: rgba(57,62,70,0.800000011920929);
+	-fx-text-fill: rgb(34,40,49);
+}
+
+
+
+
+.Prueba{
+		/* Nepal theme from https://uigradients.com/#Nepal */
+	-fx-background-color : linear-gradient(to left,
+		#3a7bd5,
+	#3a6073
+	); 
+	
+	/* Sunset from https://uigradients.com/#Sunset */
+	-fx-background-color : linear-gradient(to right,
+		#3a7bd5,
+	#3a6073
+	);
 }
