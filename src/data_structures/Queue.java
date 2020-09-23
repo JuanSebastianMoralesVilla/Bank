@@ -19,7 +19,6 @@ public class Queue<T> implements IQueue<T>{
 			}
 			current.setNext(newElement);
 		}
-		
 	}
 
 	@Override
