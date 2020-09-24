@@ -2,6 +2,9 @@ package ui;
 
 import java.io.IOException;
 
+import javax.swing.Icon;
+import javax.swing.JOptionPane;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +20,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import model.Bank;
@@ -294,7 +298,13 @@ public class BankGUI {
 	private Button btCancelAccount;
 
 	@FXML
-	void loadCancelAcount(ActionEvent event) {
+	void loadCancelAcount(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("CancelAccountInter.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
 
 	}
 
@@ -329,7 +339,15 @@ public class BankGUI {
 	}
 
 	@FXML
-	void loadbacktoinit(ActionEvent event) {
+	void loadbacktoinit(ActionEvent event) throws IOException {
+
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+		System.out.println("entre");
 
 	}
 
@@ -359,7 +377,7 @@ public class BankGUI {
 
 	@FXML
 	void retirementAction(ActionEvent event) {
-
+		JOptionPane.showMessageDialog(null, "Retiro Confirmada");
 	}
 
 	// interfaz de pago de tarjeta
@@ -381,7 +399,7 @@ public class BankGUI {
 
 	@FXML
 	void confirmPay(ActionEvent event) {
-
+		JOptionPane.showMessageDialog(null, "Pago Confirmado");
 	}
 
 	@FXML
@@ -393,36 +411,64 @@ public class BankGUI {
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
 	}
-	
+
 	// Interfaz de consignacion
-	
-	
-	  @FXML
-	    private TextField txtMoneytoConsinement;
 
-	    @FXML
-	    private TextField txtIDAccountConsignement;
+	@FXML
+	private TextField txtMoneytoConsinement;
 
-	    @FXML
-	    private Button btConsignementBill;
+	@FXML
+	private TextField txtIDAccountConsignement;
 
-	    @FXML
-	    private Button btPreviousConsignemeent;
+	@FXML
+	private Button btConsignementBill;
 
-	    @FXML
-	    void consignationAction(ActionEvent event) {
+	@FXML
+	private Button btPreviousConsignemeent;
 
-	    }
+	@FXML
+	void consignationAction(ActionEvent event) {
+		JOptionPane.showMessageDialog(null, "Consignacion Confirmada");
+	}
 
-	    @FXML
-	    void loadMenuConsignation(ActionEvent event) throws IOException {
-			FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
-			fL.setController(this);
-			Parent pane;
-			pane = fL.load();
-			myPane.getChildren().clear();
-			myPane.setCenter(pane);
-	    }
+	@FXML
+	void loadMenuConsignation(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
 
+	// Interfaz Cancel account
+
+	@FXML
+	private Button btConfirnCancel;
+
+	@FXML
+	private TextArea txtAreaMotiveofCancel;
+
+	@FXML
+	private DatePicker txtDayofcancelation;
+
+	@FXML
+	private Button btPreviuosCancel;
+
+	@FXML
+	void cancelAccountAction(ActionEvent event) {
+		JOptionPane.showMessageDialog(null, "Cancelacion Confirmada");
+		System.out.println("CANCELACION CONFIRMADA");
+	}
+
+	@FXML
+	void loadMenuCancel(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
 
 }
