@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -249,24 +250,23 @@ public class BankGUI {
 		myPane.setCenter(pane);
 
 	}
-	
-	
+
 	// interfaz prioriatria de turno
-	
-    @FXML
-    private Button btOptionUser;
-    
-    @FXML
-    private TextField txtStackNormal;
 
-    @FXML
-    private TextField txtStackPriority;
+	@FXML
+	private Button btOptionUser;
 
-    @FXML
-    private Button btnextTurn;
+	@FXML
+	private TextField txtStackNormal;
 
-    @FXML
-    void loadMenuOptions(ActionEvent event) throws IOException {
+	@FXML
+	private TextField txtStackPriority;
+
+	@FXML
+	private Button btnextTurn;
+
+	@FXML
+	void loadMenuOptions(ActionEvent event) throws IOException {
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
 		fL.setController(this);
 		Parent pane;
@@ -274,5 +274,155 @@ public class BankGUI {
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
 		System.out.println("entre");
-    }
+	}
+
+	// Botones del menu de opciones.
+
+	@FXML
+	private Button btconsignacion;
+
+	@FXML
+	private Button btPagoTarjeta;
+
+	@FXML
+	private Button btRetiro;
+
+	@FXML
+	private Button btBacktoShift;
+
+	@FXML
+	private Button btCancelAccount;
+
+	@FXML
+	void loadCancelAcount(ActionEvent event) {
+
+	}
+
+	@FXML
+	void loadConsignation(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterface.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
+
+	@FXML
+	void loadPayTarjet(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterface.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
+
+	@FXML
+	void loadRetirement(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterface.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
+
+	@FXML
+	void loadbacktoinit(ActionEvent event) {
+
+	}
+
+	// interfaz de Retiro
+
+	@FXML
+	private TextField txtAmount;
+
+	@FXML
+	private TextField txtRetirement;
+
+	@FXML
+	private Button btpreviousRetirement;
+
+	@FXML
+	private Button btConfirmRetirement;
+
+	@FXML
+	void loadMenuRetirement(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
+
+	@FXML
+	void retirementAction(ActionEvent event) {
+
+	}
+
+	// interfaz de pago de tarjeta
+
+	@FXML
+	private TextField txtAmountPay;
+
+	@FXML
+	private RadioButton rbEfective;
+
+	@FXML
+	private ToggleGroup tgTypePay;
+
+	@FXML
+	private RadioButton rbAC;
+
+	@FXML
+	private Button btpreviousPay;
+
+	@FXML
+	void confirmPay(ActionEvent event) {
+
+	}
+
+	@FXML
+	void loadMenuPay(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
+	
+	// Interfaz de consignacion
+	
+	
+	  @FXML
+	    private TextField txtMoneytoConsinement;
+
+	    @FXML
+	    private TextField txtIDAccountConsignement;
+
+	    @FXML
+	    private Button btConsignementBill;
+
+	    @FXML
+	    private Button btPreviousConsignemeent;
+
+	    @FXML
+	    void consignationAction(ActionEvent event) {
+
+	    }
+
+	    @FXML
+	    void loadMenuConsignation(ActionEvent event) throws IOException {
+			FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+			fL.setController(this);
+			Parent pane;
+			pane = fL.load();
+			myPane.getChildren().clear();
+			myPane.setCenter(pane);
+	    }
+
+
 }

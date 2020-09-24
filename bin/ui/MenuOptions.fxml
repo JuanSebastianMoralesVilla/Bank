@@ -16,7 +16,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="BtUser" alignment="CENTER" layoutX="496.0" layoutY="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="69.0" styleClass="btUser" />
+            <Button alignment="CENTER" layoutX="496.0" layoutY="22.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="69.0" styleClass="btUser" />
             <Label layoutX="79.0" layoutY="301.0" text="RETIRO">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
@@ -27,12 +27,12 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btconsignacion" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="465.0" layoutY="219.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt3" />
-            <Button fx:id="btPagoTarjeta" layoutX="260.0" layoutY="219.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt1" />
-            <Button fx:id="btRetiro" layoutX="56.0" layoutY="219.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="88.0" styleClass="bt2" />
-            <TextField layoutX="39.0" layoutY="30.0" prefHeight="39.0" prefWidth="66.0" />
-            <Button fx:id="btBacktoShift" layoutX="278.0" layoutY="359.0" mnemonicParsing="false" text="SALIR" />
-            <Button fx:id="btCancelAccount" layoutX="272.0" layoutY="109.0" mnemonicParsing="false" text="Cancelar cuenta" />
+            <Button fx:id="btconsignacion" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="465.0" layoutY="219.0" mnemonicParsing="false" onAction="#loadConsignation" prefHeight="72.0" prefWidth="88.0" styleClass="bt3" />
+            <Button fx:id="btPagoTarjeta" layoutX="260.0" layoutY="219.0" mnemonicParsing="false" onAction="#loadPayTarjet" prefHeight="72.0" prefWidth="88.0" styleClass="bt1" />
+            <Button fx:id="btRetiro" layoutX="56.0" layoutY="219.0" mnemonicParsing="false" onAction="#loadRetirement" prefHeight="72.0" prefWidth="88.0" styleClass="bt2" />
+            <TextField editable="false" layoutX="39.0" layoutY="30.0" prefHeight="39.0" prefWidth="66.0" />
+            <Button fx:id="btBacktoShift" layoutX="278.0" layoutY="359.0" mnemonicParsing="false" onAction="#loadbacktoinit" text="SALIR" />
+            <Button fx:id="btCancelAccount" layoutX="272.0" layoutY="109.0" mnemonicParsing="false" onAction="#loadCancelAcount" text="Cancelar cuenta" />
          </children>
       </Pane>
    </center>
