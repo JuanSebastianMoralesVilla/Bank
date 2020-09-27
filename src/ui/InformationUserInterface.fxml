@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <center>
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Prueba" BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="txtNameUser" layoutX="112.0" layoutY="113.0" />
+            <TextField fx:id="txtLastNameUser" layoutX="112.0" layoutY="166.0" />
+            <TextField fx:id="txtIDuser" layoutX="112.0" layoutY="215.0" />
+            <TextField fx:id="txtAccountBankUser" layoutX="112.0" layoutY="262.0" />
+            <Label layoutX="65.0" layoutY="117.0" text="Nombre:" />
+            <Label layoutX="65.0" layoutY="170.0" text="Apellido:" />
+            <Label layoutX="155.0" layoutY="31.0" prefHeight="35.0" prefWidth="319.0" text="Informacion del cliente">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="72.0" layoutY="219.0" text="Cedula:" />
+            <Label layoutX="22.0" layoutY="266.0" text="Cuenta Bancaria:" />
+            <RadioButton fx:id="tgTarjetDebitUser" layoutX="361.0" layoutY="117.0" mnemonicParsing="false" text="Tarjeta debito">
+               <toggleGroup>
+                  <ToggleGroup fx:id="TypeTarjetUserTG" />
+               </toggleGroup></RadioButton>
+            <RadioButton fx:id="tgTarjetCreditUser" layoutX="481.0" layoutY="117.0" mnemonicParsing="false" text="Tarjeta credito" toggleGroup="$TypeTarjetUserTG" />
+            <Label layoutX="435.0" layoutY="88.0" text="Tipo de tarjeta" />
+            <DatePicker fx:id="txtDayPayUser" layoutX="389.0" layoutY="179.0" />
+            <Label layoutX="394.0" layoutY="158.0" text="Fecha de pago tarjeta de credito" />
+            <Label layoutX="394.0" layoutY="219.0" text="Fecha de ingreso al banco" />
+            <DatePicker fx:id="txtDayAccesBankUser" layoutX="389.0" layoutY="250.0" />
+            <Separator layoutX="308.0" layoutY="92.0" orientation="VERTICAL" prefHeight="200.0" />
+            <Button fx:id="btAtrasInformationUser" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadMenuOptionsINformationUser" text="Atras" />
+            <Button fx:id="btInformationTable" layoutX="419.0" layoutY="350.0" mnemonicParsing="false" onAction="#loadTableInformationUser" text="Ver informacion en tabla" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>

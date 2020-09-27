@@ -21,10 +21,10 @@
                         <TableColumn fx:id="TcMonto" prefWidth="75.0" text="Monto" />
                      </columns>
                   </TableView>
-                  <Button fx:id="BtSelecition" layoutX="85.0" layoutY="87.0" mnemonicParsing="false" text="Selection" textFill="#ff0f0f" />
-                  <Button fx:id="btHeapsort" layoutX="85.0" layoutY="157.0" mnemonicParsing="false" text="Heapsort" />
-                  <Button fx:id="btMergesort" layoutX="85.0" layoutY="225.0" mnemonicParsing="false" text="Merge Sort" />
-                  <Button fx:id="btquicksort" layoutX="85.0" layoutY="287.0" mnemonicParsing="false" text="Quicksort" />
+                  <Button fx:id="BtSelecition" layoutX="85.0" layoutY="87.0" mnemonicParsing="false" onAction="#loadSelectionSort" text="Selection" textFill="#ff0f0f" />
+                  <Button fx:id="btHeapsort" layoutX="85.0" layoutY="157.0" mnemonicParsing="false" onAction="#loadHeapsort" text="Heapsort" />
+                  <Button fx:id="btMergesort" layoutX="85.0" layoutY="225.0" mnemonicParsing="false" onAction="#LoadMergesort" text="Merge Sort" />
+                  <Button fx:id="btquicksort" layoutX="85.0" layoutY="287.0" mnemonicParsing="false" onAction="#loadQuikcsort" text="Quicksort" />
                   <Button fx:id="btatrasTable" layoutX="520.0" layoutY="361.0" mnemonicParsing="false" onAction="#atrasTableInterface" text="atras" />
                   <Separator layoutX="14.0" layoutY="64.0" prefHeight="3.0" prefWidth="568.0" />
                </children>

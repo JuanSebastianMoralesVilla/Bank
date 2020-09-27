@@ -129,6 +129,7 @@ public class BankGUI {
 		 */
 	}
 
+	// create User 2
 	@FXML
 	void nextUser(ActionEvent event) throws IOException {
 
@@ -141,7 +142,21 @@ public class BankGUI {
 
 	}
 
-	// Boton de Crear el usuario
+	// Create user 1
+
+	@FXML
+	void addUser(ActionEvent event) throws IOException {
+
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("CreateUser1.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+
+	}
+
+	// interfaz de asignar turnos
 	@FXML
 	void createUser(ActionEvent event) throws IOException {
 
@@ -152,6 +167,8 @@ public class BankGUI {
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
 	}
+
+	// interfaz de busqueda
 
 	@FXML
 	void btAtras(ActionEvent event) throws IOException {
@@ -169,30 +186,63 @@ public class BankGUI {
 	@FXML
 	void btSearchIDtoOptions(ActionEvent event) throws IOException {
 
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("InformationUserInterface.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+
+	}
+
+	// Interfaz de informaacion de usuario
+
+	@FXML
+	private TextField txtNameUser;
+
+	@FXML
+	private TextField txtLastNameUser;
+
+	@FXML
+	private TextField txtIDuser;
+
+	@FXML
+	private TextField txtAccountBankUser;
+
+	@FXML
+	private RadioButton tgTarjetDebitUser;
+
+	@FXML
+	private ToggleGroup TypeTarjetUserTG;
+
+	@FXML
+	private RadioButton tgTarjetCreditUser;
+
+	@FXML
+	private DatePicker txtDayPayUser;
+
+	@FXML
+	private DatePicker txtDayAccesBankUser;
+
+	@FXML
+	private Button btAtrasInformationUser;
+
+	@FXML
+	private Button btInformationTable;
+
+	@FXML
+	void loadMenuOptionsINformationUser(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
+
+	@FXML
+	void loadTableInformationUser(ActionEvent event) throws IOException {
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("TableInterface.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
-
-	}
-
-	@FXML
-	void addUser(ActionEvent event) throws IOException {
-
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("CreateUser1.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
-
-	}
-
-	@FXML
-	void createShift(ActionEvent event) throws IOException {
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("reportQueue.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
@@ -202,16 +252,21 @@ public class BankGUI {
 
 	@FXML
 	void loadInformationClient(ActionEvent event) throws IOException {
-
-		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TableInterface.fxml"));
-		fxmlLoader.setController(this);
-		Parent root1 = (Parent) fxmlLoader.load();
-		Stage stage = new Stage();
-		stage.setScene(new Scene(root1));
-		stage.show();
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+		/*
+		 * FXMLLoader fxmlLoader = new
+		 * FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		 * fxmlLoader.setController(this); Parent root1 = (Parent) fxmlLoader.load();
+		 * Stage stage = new Stage(); stage.setScene(new Scene(root1)); stage.show();
+		 */
 	}
 
-	// Tabla de ordenamientos
+	// Interfaz de Tabla de ordenamientos
 
 	@FXML
 	private TableView<?> Table1;
@@ -246,12 +301,32 @@ public class BankGUI {
 	@FXML
 	void atrasTableInterface(ActionEvent event) throws IOException {
 
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("SearchID.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
+
+	}
+
+	@FXML
+	void LoadMergesort(ActionEvent event) {
+
+	}
+
+	@FXML
+	void loadHeapsort(ActionEvent event) {
+
+	}
+
+	@FXML
+	void loadQuikcsort(ActionEvent event) {
+
+	}
+
+	@FXML
+	void loadSelectionSort(ActionEvent event) {
 
 	}
 
@@ -269,6 +344,19 @@ public class BankGUI {
 	@FXML
 	private Button btnextTurn;
 
+	// reporte de turnos fila normal y prioritaria
+	@FXML
+	void createShift(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("reportQueue.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+	}
+
+	// carga el menu de opciones de la inerfaz de turno para devolverse
+
 	@FXML
 	void loadMenuOptions(ActionEvent event) throws IOException {
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
@@ -280,7 +368,9 @@ public class BankGUI {
 		System.out.println("entre");
 	}
 
-	// Botones del menu de opciones.
+	// Interfaz menu de opciones.
+	@FXML
+	private Button BtSearchInformationUser;
 
 	@FXML
 	private Button btconsignacion;
@@ -292,10 +382,10 @@ public class BankGUI {
 	private Button btRetiro;
 
 	@FXML
-	private Button btBacktoShift;
+	private Button btCancelAccount;
 
 	@FXML
-	private Button btCancelAccount;
+	private Button btBacktoShift;
 
 	@FXML
 	void loadCancelAcount(ActionEvent event) throws IOException {
@@ -341,7 +431,7 @@ public class BankGUI {
 	@FXML
 	void loadbacktoinit(ActionEvent event) throws IOException {
 
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
@@ -349,6 +439,30 @@ public class BankGUI {
 		myPane.setCenter(pane);
 		System.out.println("entre");
 
+	}
+
+	@FXML
+	void loadSearchUser(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("SearchID.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		myPane.getChildren().clear();
+		myPane.setCenter(pane);
+		System.out.println("entre");
+	}
+
+	// undo
+
+	@FXML
+	void undoAction(ActionEvent event) {
+		int confirm = 0;
+		JOptionPane.showConfirmDialog(null, "¿Deshacer cambios?");
+
+		if (JOptionPane.OK_OPTION == confirm)
+			System.out.println("confirmado");
+		else
+			System.out.println("Seguir normal");
 	}
 
 	// interfaz de Retiro

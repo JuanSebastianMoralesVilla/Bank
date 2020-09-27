@@ -10,7 +10,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Prueba" BorderPane.alignment="CENTER">
          <children>
             <TextField fx:id="txtAmountPay" layoutX="199.0" layoutY="103.0" />
             <Label layoutX="109.0" layoutY="107.0" text="Monto a pagar:" />
@@ -20,7 +20,7 @@
                </toggleGroup></RadioButton>
             <RadioButton fx:id="rbAC" layoutX="304.0" layoutY="218.0" mnemonicParsing="false" text="Cuenta de ahorros" toggleGroup="$tgTypePay" />
             <Label layoutX="109.0" layoutY="192.0" text="Tipo de pago" />
-            <Button fx:id="btpreviousPay" layoutX="252.0" layoutY="346.0" mnemonicParsing="false" onAction="#loadMenuPay" text="VOLVER" />
+            <Button fx:id="btpreviousPay" layoutX="245.0" layoutY="330.0" mnemonicParsing="false" onAction="#loadMenuPay" prefHeight="42.0" prefWidth="56.0" styleClass="btCasa" />
             <Button layoutX="248.0" layoutY="253.0" mnemonicParsing="false" onAction="#confirmPay" text="Confirmar pago" />
          </children>
       </Pane>
