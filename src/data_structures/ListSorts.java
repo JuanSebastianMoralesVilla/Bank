@@ -6,7 +6,10 @@ import java.util.List;
 
 public class ListSorts {
 	
-	
+	public final static String SELECTION="SelectionSort";
+	public final static String HEAP="HeapSort";
+	public final static String MERGE="MergeSort";
+	public final static String QUICK="QuickSort";
 	public  static <T> void selectionSort(List<T> array, Comparator<T> comparator){
 		
 		for (int i = 0; i < array.size(); i++) {
@@ -53,13 +56,13 @@ public class ListSorts {
 		}
 	}
 	
-	public  static <T> void mergueSort(List<T> array, Comparator<T> comparator){
-		mergueSortR(array,0,array.size()-1,comparator);
+	public  static <T> void mergeSort(List<T> array, Comparator<T> comparator){
+		mergeSortR(array,0,array.size()-1,comparator);
 	}
-	public static <T> void mergueSortR(List<T> array, int start,int end,Comparator<T> comparator) {
+	public static <T> void mergeSortR(List<T> array, int start,int end,Comparator<T> comparator) {
 		if(end-start+1>=2) {
-			mergueSortR(array,start,(start+end)/2,comparator);
-			mergueSortR(array,((start+end)/2)+1,end,comparator);
+			mergeSortR(array,start,(start+end)/2,comparator);
+			mergeSortR(array,((start+end)/2)+1,end,comparator);
 		}
 		toCombine(array,start,(start+end)/2,end,comparator);
 	}

@@ -1,21 +1,26 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class Client {
+public class Client implements Comparable<Client>{
 	private String name;
+	private String lastName;
 	private String id;
-	private Date dateJoinedBank;
+	private int priorityLevel;
+	private LocalDate dateJoinedBank;
+	private Tarjet tarjet;
 	
-	// añadir un tipo de cliente verdadero si es de tipo prioritario, y falso si es cliente normal.
-	private boolean typeClient;
+	public final static String NAME = "name";
+	public final static String ID = "id";
+	public final static String DATE = "date";
+	public final static String AMOUNT = "amount";
 	
-	public Client(String name,String id,Date dateJoinedBank,Boolean typeBoolean) {
+	public Client(String name,String lastName,String id,String type,String idAccount,double amount,LocalDate dateJoinedBank) {
 		this.name = name;
+		this.lastName = lastName;
 		this.id = id;
 		this.dateJoinedBank = dateJoinedBank;
-		this.typeClient=typeClient;
-		
+		tarjet = new Tarjet(type,idAccount,amount,dateJoinedBank);
 	}
 
 	public String getName() {
@@ -26,9 +31,29 @@ public class Client {
 		return id;
 	}
 
-	public Date getDateJoinedBank() {
+	public LocalDate getDateJoinedBank() {
 		return dateJoinedBank;
 	}
 	
-	
+	@Override
+	public int hashCode() {
+		return Integer.parseInt(id);
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	@Override
+	public int compareTo(Client o) {
+		return priorityLevel-o.getPriorityLevel();
+	}
+
+	public int getPriorityLevel() {
+		return priorityLevel;
+	}
+
+	public Tarjet getTarjet() {
+		return tarjet;
+	}
 }

@@ -1,20 +1,21 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class Tarjet {
 	private String type;
-	private double amount;
 	private String idAccount;
-	private Date dateUpdateCredit;
-	public final String AHORROS = "Ahorros";
-	public final String CREDIT = "Credit";
+	private double amount;
+	private LocalDate dateUpdateCredit;
+	public static final String AHORROS = "Ahorros";
+	public static final String CREDIT = "Credit";
+	public static final String BOTH = "Both";
 	
-	public Tarjet(String type, double amount,String idAccount,Date dateUpdateCredit) {
+	public Tarjet(String type, String idAccount,double amount,LocalDate dateUpdateCredit) {
 		this.type = type;
 		this.amount = amount;
 		this.idAccount = idAccount;
-		this.dateUpdateCredit = dateUpdateCredit;
+		this.setDateUpdateCredit(dateUpdateCredit);
 	}
 
 	public String getType() {
@@ -41,20 +42,20 @@ public class Tarjet {
 		this.idAccount = idAccount;
 	}
 
-	public Date getDateUpdateCredit() {
-		return dateUpdateCredit;
-	}
-
-	public void setDateUpdateCredit(Date dateUpdateCredit) {
-		this.dateUpdateCredit = dateUpdateCredit;
-	}
-
 	public String getAHORROS() {
 		return AHORROS;
 	}
 
 	public String getCREDIT() {
 		return CREDIT;
+	}
+
+	public LocalDate getDateUpdateCredit() {
+		return dateUpdateCredit;
+	}
+
+	public void setDateUpdateCredit(LocalDate dateUpdateCredit) {
+		this.dateUpdateCredit = dateUpdateCredit;
 	}
 	
 	

@@ -9,7 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import model.Bank;
-import ui.BankGUI;
+import model.*;
+import ui.*;
 
 public class Main extends Application {
 
@@ -17,7 +18,6 @@ public class Main extends Application {
 	private Bank bank;
 
 	public Main() {
-		bank = new Bank();
 
 	}
 
@@ -28,27 +28,38 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage stage) throws Exception {
-		
-	
-		
+		// TODO Auto-generated method stub
+/*
+		FXMLLoader fxmlLoad = new FXMLLoader(getClass().getResource("WelcomeInicial.fxml"));
 		bankGui = new BankGUI(stage, bank);
-        FileInputStream fis = new FileInputStream("Images/bank.png");
-		FXMLLoader f = new FXMLLoader(getClass().getResource("Welcome.fxml"));
-        f.setController(bankGui);
-		Parent root = f.load();
-		Scene sc = new Scene(root);
-		stage.setScene(sc);
-		stage.sizeToScene();
-		sc.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
-		stage.setScene(sc);
+		
+		fxmlLoad.setController(bankGui);
+	Parent root = fxmlLoad.load();
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
+		stage.setScene(scene);
 		stage.centerOnScreen();
-        stage.getIcons().add(new Image(fis));
-		stage.setTitle("BANK");
+		stage.setMinHeight(600);
+		stage.setMinWidth(1000);
+        stage.setTitle("Bank");
 		stage.show();
+		*/
 		
-		
-		
-
+		FileInputStream fis = new FileInputStream("Images/bank.png");
+		  FXMLLoader f = new FXMLLoader(getClass().getResource("WelcomeInicial.fxml"));
+		    f.setController(this);
+		    Parent root = f.load();
+		    Scene sc = new Scene(root);
+		    stage.setScene(sc);
+		    stage.sizeToScene();
+		    sc.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
+			stage.setScene(sc);
+			stage.centerOnScreen();
+			//stage.setMinHeight(600);
+			//stage.setMinWidth(1000);
+			stage.getIcons().add(new Image(fis));
+			stage.setTitle("All Stock");
+		    stage.show();
 	}
 
 }
