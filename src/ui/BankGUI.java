@@ -586,6 +586,3 @@ public class BankGUI {
 	}
 
 }
-
-
-// fin
