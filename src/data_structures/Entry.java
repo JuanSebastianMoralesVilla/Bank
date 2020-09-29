@@ -1,6 +1,6 @@
 package data_structures;
 
-public class Entry<T1, T2> {
+public class Entry<T1, T2> implements Comparable<T2>{
 	private T1 key;
 	private T2 value;
 	private boolean delated;
@@ -32,5 +32,11 @@ public class Entry<T1, T2> {
 
 	public void setDelated(boolean delated) {
 		this.delated = delated;
+	}
+
+	@Override
+	public int compareTo(T2 o) {
+		
+		return 0;
 	}
 }

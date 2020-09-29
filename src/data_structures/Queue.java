@@ -38,7 +38,7 @@ public class Queue<T> implements IQueue<T>{
 	}
 
 	@Override
-	public T consultar() {
+	public T consult() {
 		if(first!=null) {
 			T element = first.getElement();
 			return element;
