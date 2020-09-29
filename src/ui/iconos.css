@@ -57,6 +57,17 @@
         -fx-background-color: null;
         -fx-background-size: stretch;
 }
+.btCasa{
+	-fx-background-image: url("../../Images/casa.png");
+        -fx-background-color: null;
+        -fx-background-size: stretch;
+}
+.btDeshacer{
+	-fx-background-image: url("../../Images/deshacer.png");
+        -fx-background-color: null;
+        -fx-background-size: stretch;
+}
+
 .bt1:hover{
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
@@ -85,6 +96,12 @@
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .btTrabajador:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btCasa:hover{
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+.btDeshacer:hover{
 	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 

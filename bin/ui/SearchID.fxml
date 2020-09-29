@@ -6,15 +6,18 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" styleClass="Prueba" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Button fx:id="btSearch" layoutX="413.0" layoutY="158.0" mnemonicParsing="false" prefHeight="59.0" prefWidth="78.0" styleClass="btSearch2" />
-      <Label layoutX="73.0" layoutY="119.0" text="INGRESE SU CEDULA PARA ACCEDER A LAS FUNCIONES" />
-      <TextField fx:id="txtid" layoutX="133.0" layoutY="175.0" prefHeight="25.0" prefWidth="264.0" />
-      <Button fx:id="btAtrasSearch" layoutX="21.0" layoutY="14.0" mnemonicParsing="false" text="ATRAS" />
-      <ImageView fitHeight="101.0" fitWidth="169.0" layoutX="250.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+      <Button fx:id="btSearch" layoutX="431.0" layoutY="159.0" mnemonicParsing="false" onAction="#btSearchIDtoOptions" prefHeight="72.0" prefWidth="91.0" styleClass="btSearch2" />
+      <Label layoutX="144.0" layoutY="151.0" text="INGRESE SU CEDULA:">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font></Label>
+      <TextField fx:id="txtid" layoutX="144.0" layoutY="175.0" prefHeight="25.0" prefWidth="264.0" />
+      <Button fx:id="btAtrasSearch" layoutX="267.0" layoutY="314.0" mnemonicParsing="false" onAction="#btAtras" prefHeight="59.0" prefWidth="66.0" styleClass="btCasa" />
+      <ImageView fitHeight="72.0" fitWidth="87.0" layoutX="264.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Images/bank.png" />
          </image>

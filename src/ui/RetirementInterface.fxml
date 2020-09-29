@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
    <center>
-      <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Prueba" BorderPane.alignment="CENTER">
          <children>
             <Label layoutX="218.0" layoutY="151.0" text="Cuanto desea retirar:" />
-            <Label layoutX="218.0" layoutY="101.0" text="Saldo:" />
-            <TextField layoutX="218.0" layoutY="118.0" />
-            <TextField layoutX="218.0" layoutY="175.0" />
+            <Label layoutX="218.0" layoutY="101.0" text="Saldo Disponible:" />
+            <TextField fx:id="txtAmount" editable="false" layoutX="218.0" layoutY="118.0" />
+            <TextField fx:id="txtRetirement" layoutX="218.0" layoutY="175.0" />
+            <Button fx:id="btpreviousRetirement" layoutX="262.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadMenuRetirement" prefHeight="51.0" prefWidth="60.0" styleClass="btCasa" />
+            <Button fx:id="btConfirmRetirement" layoutX="265.0" layoutY="225.0" mnemonicParsing="false" onAction="#retirementAction" text="Confirmar" />
          </children>
       </Pane>
    </center>
