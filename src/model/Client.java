@@ -8,7 +8,11 @@ public class Client implements Comparable<Client>{
 	private String id;
 	private int priorityLevel;
 	private LocalDate dateJoinedBank;
+
+	
+
 	private Tarjet tarjet;
+	private String reason;
 	
 	public final static String NAME = "name";
 	public final static String ID = "id";
@@ -16,6 +20,7 @@ public class Client implements Comparable<Client>{
 	public final static String AMOUNT = "amount";
 	
 	public Client(String name,String lastName,String id,String type,String idAccount,double amount,LocalDate dateJoinedBank) {
+		reason = "";
 		this.name = name;
 		this.lastName = lastName;
 		this.id = id;
@@ -55,5 +60,13 @@ public class Client implements Comparable<Client>{
 
 	public Tarjet getTarjet() {
 		return tarjet;
+	}
+
+	public String getReason() {
+		return reason;
+	}
+	
+	public void setReason(String reason) {
+		this.reason = reason;
 	}
 }

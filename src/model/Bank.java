@@ -14,15 +14,17 @@ public class Bank {
 	private Queue<Shift> normalQueue;
 	private PriorityQueue<Shift> priorityQueue;
 	private Stack<String[]> undo;
+	private HashTable<String,Client> delatedClients;
 	
 	public Bank() {
 		nextShift = "A00";
 		clients = new HashTable<String,Client>();
 		normalQueue = new Queue<Shift>();
 		priorityQueue = new PriorityQueue<Shift>();
+		delatedClients = new HashTable<String,Client>();
 	}
 
-	public void addClient(String name,String lastName,String id,String type,String idAccount,double ammount) {
+	public boolean addClient(String name,String lastName,String id,String type,String idAccount,double ammount) {
 		boolean save=false;
 		if(name!=null&&lastName!=null&&id!=null) {
 			if(name!=""&&lastName!=""&&id!="") {
@@ -40,8 +42,12 @@ public class Bank {
 		if(!save) {
 			//Thrown an message about this key don't exist
 		}
-		String[] addClient = {"addClient",id};
-		undo.push(addClient);
+		if(save) {
+			String[] addClient = {"addClient",id};
+			undo.push(addClient);
+		}
+		
+		return save;
 	}
 	
 	public boolean assingShift(String name,String idClient) {
@@ -96,13 +102,12 @@ public class Bank {
 				//User haven't a save account
 			}
 			
-			
-			
 		}catch(NullPointerException e) {
 			
 		}
 		
-		
+		String[] retirement = {"retirement",amount+"",idAccount};
+		undo.push(retirement);
 		return client.getTarjet().getAmount();
 	}
 	
@@ -129,14 +134,25 @@ public class Bank {
 		}catch(NullPointerException e) {
 			
 		}
-		
+		String[] consignment = {"consignment",amount+"",idAccount};
+		undo.push(consignment);
 		
 		return client.getTarjet().getAmount();
 	}
 
-	public boolean cancelAccount(String idAccount) {
-
-		return clients.remove(idAccount);
+	public boolean cancelAccount(String idAccount,String reason) {
+		Client clientDelated = clients.search(idAccount);
+		boolean result =false;
+		if(clientDelated!= null) {
+			clients.remove(idAccount);
+			result = true;
+			String[] cancelAccount = {"cancelAccount",idAccount};
+			undo.push(cancelAccount);
+			clientDelated.setReason(reason);
+			delatedClients.add(idAccount, clientDelated);
+			
+		}
+		return result;
 	}
 
 	public boolean payTarjet(String idAccount) {
@@ -154,7 +170,10 @@ public class Bank {
 		}catch(NullPointerException e) {
 			
 		}
-		
+		if(result) {
+			String[] cancelAccount = {"payTarjet",idAccount};
+			undo.push(cancelAccount);
+		}
 		return result;
 	}
 
@@ -204,6 +223,12 @@ public class Bank {
 			break;	
 		}
 		return array;
+	}
+	
+	public boolean undo() {
+		boolean result = false;
+		String[] actualProcess = undo.pop();
+		return result;
 	}
 
 }
