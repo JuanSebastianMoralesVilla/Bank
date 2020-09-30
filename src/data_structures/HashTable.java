@@ -13,7 +13,7 @@ public class HashTable<T1, T2> implements IHashTable<T1,T2>{
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub
-		return false;
+		return size==0;
 	}
 
 	@Override
@@ -66,6 +66,7 @@ public class HashTable<T1, T2> implements IHashTable<T1,T2>{
 					table[index].setDelated(true);
 					table[index].setKey(null);
 					table[index].setValue(null);
+					size--;
 					return true;
 				}
 			}
@@ -111,10 +112,15 @@ public class HashTable<T1, T2> implements IHashTable<T1,T2>{
 	public ArrayList<T2> getList(){
 		ArrayList<T2> array = new ArrayList<T2>();
 		for (int i = 0; i < table.length; i++) {
-			array.add((T2) table[i].getValue());
+			if(table[i]!=null) {
+				if(!table[i].isDelated()) {
+					array.add((T2) table[i].getValue());
+				}
+			}
+			
 		}
 		return array;
 	}
-	
+
 
 }
