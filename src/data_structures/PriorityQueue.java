@@ -10,7 +10,7 @@ public class PriorityQueue<T extends Comparable<T>> implements IQueue<T>{
 	@Override
 	public void enqueue(T element) {
 		Elements<T> newElement = new Elements<T>(element);
-		if(first.getElement()==null) {
+		if(first==null) {
 			first = newElement;
 		}else if(first.getElement().compareTo(element)<0){
 			newElement.setNext(first);

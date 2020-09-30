@@ -8,6 +8,7 @@ public class Client implements Comparable<Client>{
 	private String id;
 	private int priorityLevel;
 	private LocalDate dateJoinedBank;
+	
 
 	
 
