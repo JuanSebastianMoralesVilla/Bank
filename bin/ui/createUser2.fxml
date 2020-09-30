@@ -6,7 +6,6 @@
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -21,13 +20,9 @@
             <Label layoutX="214.0" layoutY="155.0" text="Fecha que se incorporo al banco:" />
             <Label layoutX="213.0" layoutY="95.0" text="Numero de cuenta: (ID)" />
             <TextField fx:id="txtIdTarjet" layoutX="213.0" layoutY="118.0" />
-            <TextField fx:id="txtamount" layoutX="213.0" layoutY="241.0" />
-            <RadioButton layoutX="212.0" layoutY="70.0" mnemonicParsing="false" text="T credito">
-               <toggleGroup>
-                  <ToggleGroup fx:id="GroupTarjet" />
-               </toggleGroup>
-            </RadioButton>
-            <RadioButton layoutX="312.0" layoutY="70.0" mnemonicParsing="false" text="T ahorros" toggleGroup="$GroupTarjet" />
+            <TextField fx:id="txtamountCreate" layoutX="213.0" layoutY="241.0" />
+            <RadioButton fx:id="tgTarjetCreditCreate" layoutX="212.0" layoutY="70.0" mnemonicParsing="false" text="T credito" />
+            <RadioButton fx:id="tgTarjetAhorroCreate" layoutX="312.0" layoutY="70.0" mnemonicParsing="false" text="T ahorros" />
             <Label layoutX="212.0" layoutY="217.0" text="Monto:" />
             <ImageView fitHeight="150.0" fitWidth="176.0" layoutX="12.0" layoutY="234.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -35,6 +30,7 @@
                </image>
             </ImageView>
             <ProgressBar layoutX="199.0" layoutY="366.0" prefWidth="200.0" progress="1.0" />
+            <Label layoutX="216.0" layoutY="38.0" text="Seleccione una tarjeta o ambas:" />
          </children>
       </Pane>
    </center>

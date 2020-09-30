@@ -1,6 +1,7 @@
 package ui;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import javax.swing.Icon;
 import javax.swing.JOptionPane;
@@ -15,7 +16,9 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -23,11 +26,15 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Alert.AlertType;
 import model.Bank;
+import model.Client;
+import model.Tarjet;
 
 public class BankGUI {
 
 	private Bank bank;
+	private  Client clientActual;
 
 	// Elements of interface
 
@@ -67,14 +74,10 @@ public class BankGUI {
 	@FXML
 	private TextField txtIdTarjet;
 
-	@FXML
-	private TextField txtamount;
+    @FXML
+    private TextField txtamountCreate;
 
-	@FXML
-	private ToggleGroup GroupTarjet;
-
-	@FXML
-	private ToggleGroup grupoTipocliente;
+	
 
 	// interfaz de buscar id
 
@@ -139,6 +142,7 @@ public class BankGUI {
 		pane = fL.load();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
+	
 
 	}
 
@@ -146,6 +150,9 @@ public class BankGUI {
 
 	@FXML
 	void addUser(ActionEvent event) throws IOException {
+		
+
+		
 
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("CreateUser1.fxml"));
 		fL.setController(this);
@@ -156,16 +163,56 @@ public class BankGUI {
 
 	}
 
-	// interfaz de asignar turnos
+	// radio buttons de los tipo de clientes y tipo de tarjtea
+	
+	   @FXML
+	    private RadioButton tgTarjetCreditCreate;
+
+	
+	    @FXML
+	    private RadioButton tgTarjetAhorroCreate;
+	    
+	    
+	
+	    
+	    @FXML
+	    private ComboBox<String> cbLevelPriorirty;
+	    
+	// BOTON PARA CREAR LOS USUARIOS
+	    
 	@FXML
 	void createUser(ActionEvent event) throws IOException {
+		
 
+		
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
+		
+		
+
+		cbLevelPriorirty.getItems().addAll("1","2","3","0");
+		
+		String name = txtName.getText();
+		String lastname = txtLastName.getText();
+		String id = txtIDaddUser.getText();
+		String clientType  = (String) cbLevelPriorirty.getValue() ;  // nivel d prioridad desde 0 hasta 3.
+		boolean tarjetAhorros= tgTarjetAhorroCreate.isSelected();
+		boolean tarjetCredito= tgTarjetCreditCreate.isSelected();
+		String idTarjet= txtIdTarjet.getText();
+		 LocalDate date= txtDate.getValue();
+		Double amountAccount = Double.parseDouble(txtamountCreate.getText());
+		
+		bank.addClient(name, lastname, id, clientType, idTarjet, amountAccount);
+		
+		System.out.println(name+ lastname+ id+clientType+ idTarjet+ amountAccount);
+		Alert alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("EXITO");
+		alert.setHeaderText("Cliente registrado con exito");
+		alert.showAndWait();
 	}
 
 	// interfaz de busqueda
