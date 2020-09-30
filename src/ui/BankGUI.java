@@ -110,9 +110,17 @@ public class BankGUI {
 	public void init(ActionEvent event) throws IOException {
 
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
+		FXMLLoader fL2 = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
 		fL.setController(this);
+		fL2.setController(this);
+		Parent pane2;
 		Parent pane;
+		pane2 = fL2.load();
 		pane = fL.load();
+		Scene scene = new Scene(pane2);
+		Stage ventana = new Stage();
+		ventana.setScene(scene);
+		ventana.show();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
 
@@ -120,8 +128,8 @@ public class BankGUI {
 		 * FXMLLoader f= new FXMLLoader(getClass().getResource("CreateUser1.fxml"));
 		 * f.setController(this); Parent root= f.load(); Stage st=new Stage();
 		 * 
-		 * sc.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm()
-		 * ); st.initModality(Modality.APPLICATION_MODAL);
+		 * sc.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm()); 
+		 * st.initModality(Modality.APPLICATION_MODAL);
 		 * st.initStyle(StageStyle.DECORATED); st.setScene(sc);
 		 * 
 		 * st.show();
