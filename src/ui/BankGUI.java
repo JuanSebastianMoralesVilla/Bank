@@ -1,5 +1,10 @@
 package ui;
 
+import customExceptions.UserAlreadyExistException;
+import customExceptions.UserDoesNotExistException;
+import customExceptions.ValuesIsEmptyException;
+
+
 import java.io.IOException;
 import java.time.LocalDate;
 
@@ -20,6 +25,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -34,10 +40,22 @@ import model.Tarjet;
 public class BankGUI {
 
 	private Bank bank;
-	private  Client clientActual;
+	private Client normalClient;
+	private Client priorityClient;
+	
+	@FXML
+    private Label currentShift;
+	//Shift Screen 
+    @FXML
+    private Label txtNormalQueue;
+
+    @FXML
+    private Label txtPriorityQueue;
 
 	// Elements of interface
-
+    
+    private BorderPane menuOptionsPane;
+    private BorderPane menuPOptionsPane;
 	@FXML
 	private BorderPane myPane;
 
@@ -77,7 +95,26 @@ public class BankGUI {
     @FXML
     private TextField txtamountCreate;
 
-	
+    @FXML
+    private Button BtSearchInformationUserP;
+
+    @FXML
+    private Button btconsignacionP;
+
+    @FXML
+    private Button btPagoTarjetaP;
+
+    @FXML
+    private Button btRetiroP;
+
+    @FXML
+    private Button btCancelAccountP;
+
+    @FXML
+    private Button BTUNDOP;
+
+    @FXML
+    private Label currentShiftP;	
 
 	// interfaz de buscar id
 
@@ -107,26 +144,76 @@ public class BankGUI {
 //Constructor
 
 	public BankGUI(Stage stage, Bank bank) {
-		// TODO Auto-generated constructor stub
+		menuOptionsPane = new BorderPane();
+		menuPOptionsPane = new BorderPane();
 	}
 
 	public void init(ActionEvent event) throws IOException {
 
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
-		FXMLLoader fL2 = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
 		fL.setController(this);
-		fL2.setController(this);
-		Parent pane2;
 		Parent pane;
-		pane2 = fL2.load();
 		pane = fL.load();
-		Scene scene = new Scene(pane2);
-		Stage ventana = new Stage();
-		ventana.setScene(scene);
-		ventana.show();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
-
+		
+		
+		
+		FXMLLoader fL2 = new FXMLLoader(getClass().getResource("reportQueue.fxml"));
+		fL2.setController(this);
+		Parent paneShowShifts;
+		paneShowShifts = fL2.load();
+		Scene scene = new Scene(paneShowShifts);
+		scene.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
+		Stage stageShowShifts = new Stage();
+		stageShowShifts.setScene(scene);
+		stageShowShifts.show();
+		
+		
+		
+		
+		Scene sceneMenu = new Scene(menuOptionsPane);
+		sceneMenu.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
+		Stage stageMenu = new Stage();
+		stageMenu.setScene(sceneMenu);
+		stageMenu.show();
+		
+		
+		FXMLLoader fLMenu = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fLMenu.setController(this);
+		Parent paneMenuOptions = fLMenu.load();
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(paneMenuOptions);
+		stageMenu.sizeToScene();
+		stageMenu.setTitle("Menu Options Normal Queue");
+		
+		
+		
+		Scene sceneMenuP = new Scene(menuPOptionsPane);
+		sceneMenuP.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
+		Stage stageMenuP = new Stage();
+		stageMenuP.setScene(sceneMenuP);
+		stageMenuP.show();
+		
+		FXMLLoader fLMenuP = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fLMenuP.setController(this);
+		Parent paneMenuPOptions = fLMenuP.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(paneMenuPOptions);
+		stageMenuP.sizeToScene();
+		stageMenuP.setTitle("Menu Options Priority Queue");
+		/*
+		FXMLLoader fLMenuP = new FXMLLoader(getClass().getResource("MenuPOptions.fxml"));
+		fLMenuP.setController(this);
+		Parent paneMenuOptionsP;
+		paneMenuOptionsP = fLMenuP.load();
+		Scene sceneMenuP = new Scene(paneMenuOptionsP);
+		sceneMenuP.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
+		Stage stageMenuP = new Stage();
+		stageMenuP.setScene(sceneMenuP);
+		stageMenuP.show();
+		
+		*/
 		/*
 		 * FXMLLoader f= new FXMLLoader(getClass().getResource("CreateUser1.fxml"));
 		 * f.setController(this); Parent root= f.load(); Stage st=new Stage();
@@ -142,24 +229,43 @@ public class BankGUI {
 
 	// create User 2
 	@FXML
-	void nextUser(ActionEvent event) throws IOException {
-
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("createUser2.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+	void nextUser(ActionEvent event) throws IOException, ValuesIsEmptyException {
+		if(txtName.getText()==" "||txtLastName.getText()==" "||txtIDaddUser.getText()==" ") {
+			throw new ValuesIsEmptyException();
+		}
+		try {
+			Integer.parseInt(txtIDaddUser.getText());
+			FXMLLoader fL = new FXMLLoader(getClass().getResource("createUser2.fxml"));
+			fL.setController(this);
+			Parent pane;
+			pane = fL.load();
+			myPane.getChildren().clear();
+			myPane.setCenter(pane);
+		}catch(NumberFormatException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("ERROR");
+			alert.setHeaderText("BANK");
+			alert.setContentText("Datos en formato no valido");
+			alert.showAndWait();
+		}
+		
+		
 	
 
 	}
+    @FXML
+    void tgTarjetAhorroCreateAction(ActionEvent event) {
+    	if(tgTarjetAhorroCreate.isSelected()) {
+    		
+    	}
+    }
+
 
 	// Create user 1
 
 	@FXML
 	void addUser(ActionEvent event) throws IOException {
 		
-
 		
 
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("CreateUser1.fxml"));
@@ -168,6 +274,9 @@ public class BankGUI {
 		pane = fL.load();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
+		cbLevelPriorirty.getItems().removeAll(cbLevelPriorirty.getItems());
+		cbLevelPriorirty.getItems().addAll("0","1","2","3");
+		cbLevelPriorirty.getSelectionModel().select("0");
 
 	}
 
@@ -189,9 +298,36 @@ public class BankGUI {
 	// BOTON PARA CREAR LOS USUARIOS
 	    
 	@FXML
-	void createUser(ActionEvent event) throws IOException {
+	void createUser(ActionEvent event) throws IOException, ValuesIsEmptyException, UserAlreadyExistException {
 		
+		
+		String name = txtName.getText();
+		String lastname = txtLastName.getText();
+		String id = txtIDaddUser.getText();
+		String clientType  =cbLevelPriorirty.getValue() ;  // nivel d prioridad desde 0 hasta 3.
+		
+		boolean tarjetAhorros= tgTarjetAhorroCreate.isSelected();
+		boolean tarjetCredito= tgTarjetCreditCreate.isSelected();
+		if((!tarjetAhorros && !tarjetCredito) || txtIdTarjet.getText()==" ") {
+			throw new ValuesIsEmptyException();
+		}
+		try {
+			
+		}catch(NumberFormatException e) {
+			Alert alert = new Alert(AlertType.ERROR);
+			alert.setTitle("EMPTY");
+			alert.setHeaderText("BANK");
+			alert.setContentText("Formato de valores incorrecto");
 
+			alert.showAndWait();
+		}
+		String idTarjet= txtIdTarjet.getText();
+		if(!tarjetAhorros) {
+			txtamountCreate.setText("0");
+		}
+		Double amountAccount = Double.parseDouble(txtamountCreate.getText());
+		
+		boolean confirm = bank.addClient(name, lastname, id, clientType, idTarjet, amountAccount);
 		
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
 		fL.setController(this);
@@ -199,35 +335,23 @@ public class BankGUI {
 		pane = fL.load();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
+		if(confirm) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("EXITO");
+			alert.setHeaderText("Cliente registrado con exito");
+			alert.showAndWait();
+		}else {
+			throw new UserAlreadyExistException();
+		}
 		
 		
-
-		cbLevelPriorirty.getItems().addAll("1","2","3","0");
-		
-		String name = txtName.getText();
-		String lastname = txtLastName.getText();
-		String id = txtIDaddUser.getText();
-		String clientType  = (String) cbLevelPriorirty.getValue() ;  // nivel d prioridad desde 0 hasta 3.
-		boolean tarjetAhorros= tgTarjetAhorroCreate.isSelected();
-		boolean tarjetCredito= tgTarjetCreditCreate.isSelected();
-		String idTarjet= txtIdTarjet.getText();
-		 LocalDate date= txtDate.getValue();
-		Double amountAccount = Double.parseDouble(txtamountCreate.getText());
-		
-		bank.addClient(name, lastname, id, clientType, idTarjet, amountAccount);
-		
-		System.out.println(name+ lastname+ id+clientType+ idTarjet+ amountAccount);
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("EXITO");
-		alert.setHeaderText("Cliente registrado con exito");
-		alert.showAndWait();
 	}
 
 	// interfaz de busqueda
 
 	@FXML
 	void btAtras(ActionEvent event) throws IOException {
-
+	
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
 		fL.setController(this);
 		Parent pane;
@@ -401,13 +525,16 @@ public class BankGUI {
 
 	// reporte de turnos fila normal y prioritaria
 	@FXML
-	void createShift(ActionEvent event) throws IOException {
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("reportQueue.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+	void createShift(ActionEvent event) throws IOException, UserDoesNotExistException {
+		boolean assigned = bank.assingShift(txtName1.getText(), txtid1.getText());
+		if(assigned) {
+			Alert alert = new Alert(Alert.AlertType.INFORMATION);
+			alert.setTitle("Confirmation");
+			alert.setContentText("Shift assigned correcly");
+			alert.show();
+		}else {
+			throw new UserDoesNotExistException();
+		}
 	}
 
 	// carga el menu de opciones de la inerfaz de turno para devolverse
@@ -502,9 +629,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
-		System.out.println("entre");
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
 	}
 
 	// undo
@@ -639,5 +765,40 @@ public class BankGUI {
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
 	}
+	//MenuOptionesPriority
+	@FXML
+    void loadCancelAcountP(ActionEvent event) {
+
+    }
+
+    @FXML
+    void loadConsignationP(ActionEvent event) {
+
+    }
+
+    @FXML
+    void loadPayTarjetP(ActionEvent event) {
+
+    }
+
+    @FXML
+    void loadRetirementP(ActionEvent event) {
+
+    }
+
+    @FXML
+    void loadSearchUserP(ActionEvent event) throws IOException {
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("SearchID.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+    }
+
+    @FXML
+    void undoActionP(ActionEvent event) {
+
+    }
 
 }

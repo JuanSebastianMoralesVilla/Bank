@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -13,8 +11,6 @@
       <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Prueba" BorderPane.alignment="CENTER">
          <children>
             <Separator layoutX="297.0" layoutY="139.0" orientation="VERTICAL" prefHeight="200.0" />
-            <TextField fx:id="txtStackNormal" layoutX="71.0" layoutY="139.0" prefHeight="125.0" prefWidth="149.0" />
-            <TextField fx:id="txtStackPriority" layoutX="371.0" layoutY="136.0" prefHeight="129.0" prefWidth="149.0" />
             <Label layoutX="84.0" layoutY="303.0" text="Fila normal">
                <font>
                   <Font size="25.0" />
@@ -25,9 +21,16 @@
                   <Font size="25.0" />
                </font>
             </Label>
-            <TextField editable="false" layoutX="223.0" layoutY="23.0" styleClass="Fields" stylesheets="@iconos.css" text="TURNO ACTUAL" />
-            <Button fx:id="btnextTurn" layoutX="431.0" layoutY="23.0" mnemonicParsing="false" text="TURNO SIGUIENTE" />
-            <Button fx:id="btOptionUser" layoutX="239.0" layoutY="70.0" mnemonicParsing="false" onAction="#loadMenuOptions" text="PASAR AL SERVICIO" />
+            <Label fx:id="txtNormalQueue" layoutX="71.0" layoutY="138.0" text="A00" textFill="#2200ab">
+               <font>
+                  <Font size="85.0" />
+               </font>
+            </Label>
+            <Label fx:id="txtPriorityQueue" layoutX="372.0" layoutY="138.0" text="A00" textFill="#d00000">
+               <font>
+                  <Font size="85.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </center>

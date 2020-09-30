@@ -15,7 +15,7 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="BtSearchInformationUser" alignment="CENTER" layoutX="66.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadSearchUser" prefHeight="65.0" prefWidth="69.0" styleClass="btUser" />
+            <Button fx:id="BtSearchInformationUserP" alignment="CENTER" layoutX="66.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadSearchUserP" prefHeight="65.0" prefWidth="69.0" styleClass="btUser" />
             <Label layoutX="84.0" layoutY="343.0" text="RETIRO">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
@@ -26,10 +26,10 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="btconsignacion" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="260.0" layoutY="117.0" mnemonicParsing="false" onAction="#loadConsignation" prefHeight="72.0" prefWidth="88.0" styleClass="bt3" />
-            <Button fx:id="btPagoTarjeta" layoutX="260.0" layoutY="253.0" mnemonicParsing="false" onAction="#loadPayTarjet" prefHeight="72.0" prefWidth="88.0" styleClass="bt1" />
-            <Button fx:id="btRetiro" layoutX="61.0" layoutY="261.0" mnemonicParsing="false" onAction="#loadRetirement" prefHeight="72.0" prefWidth="88.0" styleClass="bt2" />
-            <Button fx:id="btCancelAccount" layoutX="472.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadCancelAcount" prefHeight="65.0" prefWidth="79.0" styleClass="btCancelar" />
+            <Button fx:id="btconsignacionP" alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="260.0" layoutY="117.0" mnemonicParsing="false" onAction="#loadConsignationP" prefHeight="72.0" prefWidth="88.0" styleClass="bt3" />
+            <Button fx:id="btPagoTarjetaP" layoutX="260.0" layoutY="253.0" mnemonicParsing="false" onAction="#loadPayTarjetP" prefHeight="72.0" prefWidth="88.0" styleClass="bt1" />
+            <Button fx:id="btRetiroP" layoutX="61.0" layoutY="261.0" mnemonicParsing="false" onAction="#loadRetirementP" prefHeight="72.0" prefWidth="88.0" styleClass="bt2" />
+            <Button fx:id="btCancelAccountP" layoutX="472.0" layoutY="119.0" mnemonicParsing="false" onAction="#loadCancelAcountP" prefHeight="65.0" prefWidth="79.0" styleClass="btCancelar" />
             <Label layoutX="455.0" layoutY="193.0" text="CANCELAR CUENTA">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
@@ -45,15 +45,15 @@
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Button fx:id="BTUNDO" layoutX="470.0" layoutY="259.0" mnemonicParsing="false" onAction="#undoAction" prefHeight="76.0" prefWidth="83.0" styleClass="btDeshacer" />
+            <Button fx:id="BTUNDOP" layoutX="470.0" layoutY="259.0" mnemonicParsing="false" onAction="#undoActionP" prefHeight="76.0" prefWidth="83.0" styleClass="btDeshacer" />
             <Label layoutX="481.0" layoutY="343.0" text="DESHACER">
                <font>
                   <Font name="System Bold Italic" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="currentShift" alignment="CENTER" contentDisplay="CENTER" layoutX="303.0" layoutY="14.0" textFill="#3300bf">
+            <Label fx:id="currentShiftP" layoutX="303.0" layoutY="31.0" textFill="#830000">
                <font>
-                  <Font size="40.0" />
+                  <Font size="29.0" />
                </font>
             </Label>
          </children>

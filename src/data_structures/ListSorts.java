@@ -10,6 +10,8 @@ public class ListSorts {
 	public final static String HEAP="HeapSort";
 	public final static String MERGE="MergeSort";
 	public final static String QUICK="QuickSort";
+	
+	
 	public  static <T> void selectionSort(List<T> array, Comparator<T> comparator){
 		
 		for (int i = 0; i < array.size(); i++) {
