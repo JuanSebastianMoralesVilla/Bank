@@ -949,26 +949,272 @@ public class BankGUI {
 		menuOptionsPane.setCenter(pane);
 	}
 	//MenuOptionesPriority
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//  interfaz de CancelAccounterInterP prioritaria 
+	
+    @FXML
+    private Button btConfirnCancelP;
+
+    @FXML
+    private TextArea txtAreaMotiveofCancelP;
+
+    @FXML
+    private DatePicker txtDayofcancelationP;
+
+    @FXML
+    private Button btPreviuosCancelP;
+
+    @FXML
+    void cancelAccountActionP(ActionEvent event) throws ValuesIsEmptyException, IOException {
+    	if(txtAreaMotiveofCancelP.getText().isEmpty()) {
+			throw new ValuesIsEmptyException();
+		}
+		bank.cancelAccount(priorityClient.getId(), txtAreaMotiveofCancelP.getText());
+		JOptionPane.showMessageDialog(null, "Cancelacion Confirmada");
+		System.out.println("CANCELACION CONFIRMADA");
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+    }
+
+    @FXML
+    void loadMenuCancelP(ActionEvent event) throws IOException {
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+    }
+  
+
+    
+    // interfaz consignacion prioritaria 
+    
+    
+    @FXML
+    private TextField txtMoneytoConsinementP;
+
+    @FXML
+    private TextField txtIDAccountConsignementP;
+
+    @FXML
+    private Button btConsignementBillP;
+
+    @FXML
+    private Button btPreviousConsignemeentP;
+
+    @FXML
+    void consignationActionP(ActionEvent event) throws ValuesIsEmptyException, NoUserException {
+    	String value = txtMoneytoConsinementP.getText();
+		double amount=0;
+		if(value=="") {
+			throw new ValuesIsEmptyException();
+		}
+		try {
+			amount = Double.parseDouble(value);
+			double valueActual=bank.consignment(amount, priorityClient.getId());
+			JOptionPane.showMessageDialog(null, "Consignacion Confirmada, su saldo actual es: "+valueActual);
+		}catch(NumberFormatException e) {
+			throw new ValuesIsEmptyException();
+		}
+    }
+
+    @FXML
+    void loadMenuConsignationP(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+    }
+    
+    
+  // interfa pago de tarjeta prioritaria 
+    
+    
+    @FXML
+    private TextField txtAmountPayP;
+
+    @FXML
+    private RadioButton rbEfectiveP;
+
+    @FXML
+    private ToggleGroup tgTypePayP;
+
+    @FXML
+    private RadioButton rbACP;
+
+    @FXML
+    private Button btpreviousPayP;
+
+    @FXML
+    void confirmPayP(ActionEvent event) throws ValuesIsEmptyException {
+    	if(txtAmountPayP.getText().isEmpty() || (!rbEfectiveP.isSelected()&&!rbACP.isSelected())) {
+			throw new ValuesIsEmptyException();
+		}
+			
+		try{
+			double amount = Double.parseDouble(txtAmountPayP.getText());
+			if(rbACP.isSelected()) {
+				if(amount<=priorityClient.getAmount()) {
+					JOptionPane.showMessageDialog(null, "Pago Confirmado");
+				}else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("ERROR");
+					alert.setHeaderText("This user does not have enough money");
+					alert.show();
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Pago Confirmado");
+			}
+			
+		}catch(NumberFormatException e) {
+			throw new ValuesIsEmptyException();
+		}
+	}
+    
+
+    @FXML
+    void loadMenuPayP(ActionEvent event) throws IOException {
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+    }
+
+    
+    // RETIRO PRIORITARIO
+    
+    @FXML
+    private TextField txtAmountP;
+
+    @FXML
+    private TextField txtRetirementP;
+
+    @FXML
+    private Button btpreviousRetirementP;
+
+    @FXML
+    private Button btConfirmRetirementP;
+
+    @FXML
+    void loadMenuRetirementP(ActionEvent event) throws IOException {
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+	
+    }
+
+    @FXML
+    void retirementActionP(ActionEvent event) throws ValuesIsEmptyException, NoUserException {
+		if(txtRetirementP.getText().isEmpty()) {
+			throw new ValuesIsEmptyException();
+		}
+		try {
+			double amount = priorityClient.getAmount();
+			if(amount<=priorityClient.getAmount()) {
+				bank.retirement(amount, priorityClient.getId());
+				JOptionPane.showMessageDialog(null, "Retiro Confirmada");
+			}
+			
+		}catch(NumberFormatException e) {
+			throw new ValuesIsEmptyException();
+		}
+    }
+   
+    
+    
+    // MENU DE OPCIONES PRIOTARIO CAMBIO DE FUNCIONES
+    
+    
+    
+    
+    
+    @FXML
+	void loadCancelAcountP(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("CancelAccountInterP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+		txtDayofcancelationP.setValue(LocalDate.now());
+	}
+
 	@FXML
-    void loadCancelAcountP(ActionEvent event) {
+	void loadConsignationP(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterfaceP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+		txtIDAccountConsignementP.setText(priorityClient.getTarjet().getIdAccount());
+		
+	}
 
-    }
+	@FXML
+	void loadPayTarjetP(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterfaceP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+	}
 
-    @FXML
-    void loadConsignationP(ActionEvent event) {
-
-    }
-
-    @FXML
-    void loadPayTarjetP(ActionEvent event) {
-
-    }
-
-    @FXML
-    void loadRetirementP(ActionEvent event) {
-
-    }
-
+	@FXML
+	void loadRetirementP(ActionEvent event) throws IOException {
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterfaceP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		
+		txtAmountP.setText(priorityClient.getAmount()+"");
+		
+	}
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     @FXML
     void loadSearchUserP(ActionEvent event) throws IOException {
     	FXMLLoader fL = new FXMLLoader(getClass().getResource("SearchID.fxml"));
@@ -1003,10 +1249,52 @@ public class BankGUI {
     	}
     }
     
-    //InfoUserP
+    // INTERFAZ DE TABLA 
+	@FXML
+	private TableView<Client> TableP;
+
+	@FXML
+	private TableColumn<Client, String> TcNombreP;
+
+	@FXML
+	private TableColumn<Client, String> TcCedulaP;
+
+	@FXML
+	private TableColumn<Client,LocalDate> TcVinculacionP;
+
+	@FXML
+	private TableColumn<Client, Double> TcMontoP;
+
+    @FXML
+    private Button BtSelecitionP;
+
+    @FXML
+    private Button btHeapsortP;
+
+    @FXML
+    private Button btMergesortP;
+
+    @FXML
+    private Button btquicksortP;
+
+    @FXML
+    private Button btatrasTableP;
+
+    @FXML
+    private ComboBox<String> cbSortValueP;
+
+    @FXML
+    private CheckBox isAcendingP;
+
+    @FXML
+    private Button btnDisorderP;
+
+    @FXML
+    private Label labelTimeP;
+    
     @FXML
     void loadMenuOptionsINformationUserP(ActionEvent event) throws IOException {
-    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
@@ -1017,7 +1305,7 @@ public class BankGUI {
     @FXML
     void loadTableInformationUserP(ActionEvent event) throws IOException {
     	
-    	FXMLLoader fL = new FXMLLoader(getClass().getResource("TableInterface.fxml"));
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("TableInterfaceP.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
@@ -1030,12 +1318,37 @@ public class BankGUI {
 		observableList = FXCollections.observableArrayList(bank.sortList("Unsorted", Client.NAME, true));
 		Table1.setItems(observableList);
 		
-		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
-		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcCedulaP.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombreP.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
 		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
 		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
 		
     }
     
+    
+    /// METODOS FILA PRIORITARIA 
+    
+    // INFORMACION DE USUARIO PRIOITARIA 
+    
+
+ // Interfaz de informaacion de usuario
+
+/// ATRIBUTOS ARRIBA 
+ 	
+  
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    
+
+
+
+	
 
 }

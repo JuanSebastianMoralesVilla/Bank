@@ -16,9 +16,9 @@
             <Label layoutX="109.0" layoutY="107.0" text="Monto a pagar:" />
             <RadioButton fx:id="rbEfectiveP" layoutX="156.0" layoutY="218.0" mnemonicParsing="false" text="Efectivo">
                <toggleGroup>
-                  <ToggleGroup fx:id="tgTypePay" />
+                  <ToggleGroup fx:id="tgTypePayP" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="rbACP" layoutX="304.0" layoutY="218.0" mnemonicParsing="false" text="Cuenta de ahorros" toggleGroup="$tgTypePay" />
+            <RadioButton fx:id="rbACP" layoutX="304.0" layoutY="218.0" mnemonicParsing="false" text="Cuenta de ahorros" toggleGroup="$tgTypePayP" />
             <Label layoutX="109.0" layoutY="192.0" text="Tipo de pago" />
             <Button fx:id="btpreviousPayP" layoutX="245.0" layoutY="330.0" mnemonicParsing="false" onAction="#loadMenuPayP" prefHeight="42.0" prefWidth="56.0" styleClass="btCasa" />
             <Button layoutX="223.0" layoutY="256.0" mnemonicParsing="false" onAction="#confirmPayP" text="Confirmar pago" />
