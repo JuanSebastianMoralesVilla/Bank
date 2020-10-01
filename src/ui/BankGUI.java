@@ -48,6 +48,12 @@ public class BankGUI {
 	
 	//InnfoUserP
     @FXML
+    private Button nextUserP;
+
+    @FXML
+    private Button nextuser;
+
+    @FXML
     private TextField txtNameUserP;
 
     @FXML
@@ -100,7 +106,7 @@ public class BankGUI {
 	// Elements of interface
     
     private BorderPane menuOptionsPane;
-    private BorderPane menuPOptionsPane;
+    private BorderPane menuOptionsPaneP;
 	@FXML
 	private BorderPane myPane;
 
@@ -108,8 +114,6 @@ public class BankGUI {
 	private Button btInit;
 
 	/// fxml de la creacion de clientes
-
-	private Button btnextUser;
 
 	@FXML
 	private TextField txtName;
@@ -203,13 +207,11 @@ public class BankGUI {
 //Constructor
 
 	public BankGUI(Stage stage, Bank bank) {
-		normalClient = new Client("Cristian", "Morales", "1101", Tarjet.AHORROS, "123456", 20000, LocalDate.now());
-		priorityClient = new Client("Santiago", "Hurtado", "4010", Tarjet.AHORROS, "123456", 10000, LocalDate.now());
-		bank.addClient("Santiago", "Hurtado", "4010", Tarjet.AHORROS, "123456", 10000);
-		bank.addClient("Cristian", "Morales", "1101", Tarjet.AHORROS, "123456", 20000);
+		normalClient=null;
+		priorityClient=null;
 		this.bank = bank;
 		menuOptionsPane = new BorderPane();
-		menuPOptionsPane = new BorderPane();
+		menuOptionsPaneP = new BorderPane();
 	}
 
 	public void init(ActionEvent event) throws IOException {
@@ -252,20 +254,21 @@ public class BankGUI {
 		stageMenu.setTitle("Menu Options Normal Queue");
 		
 		
-		
-		Scene sceneMenuP = new Scene(menuPOptionsPane);
+		Scene sceneMenuP = new Scene(menuOptionsPaneP);
 		sceneMenuP.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
 		Stage stageMenuP = new Stage();
 		stageMenuP.setScene(sceneMenuP);
 		stageMenuP.show();
 		
-		FXMLLoader fLMenuP = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		FXMLLoader fLMenuP = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
 		fLMenuP.setController(this);
 		Parent paneMenuPOptions = fLMenuP.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(paneMenuPOptions);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(paneMenuPOptions);
 		stageMenuP.sizeToScene();
 		stageMenuP.setTitle("Menu Options Priority Queue");
+		
+		
 		
 	}
 
@@ -291,9 +294,6 @@ public class BankGUI {
 			alert.showAndWait();
 		}
 		
-		
-	
-
 	}
     @FXML
     void tgTarjetAhorroCreateAction(ActionEvent event) {
@@ -368,8 +368,9 @@ public class BankGUI {
 			txtamountCreate.setText("0");
 		}
 		Double amountAccount = Double.parseDouble(txtamountCreate.getText());
+		int level = Integer.parseInt(cbLevelPriorirty.getValue());
+		boolean confirm = bank.addClient(name, lastname, id,level, clientType, idTarjet, amountAccount);
 		
-		boolean confirm = bank.addClient(name, lastname, id, clientType, idTarjet, amountAccount);
 		
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
 		fL.setController(this);
@@ -638,6 +639,10 @@ public class BankGUI {
 			alert.setTitle("Confirmation");
 			alert.setContentText("Shift assigned correcly");
 			alert.show();
+			if(normalClient==null || priorityClient==null) {
+				normalClient = bank.normalCurrent();
+				priorityClient = bank.priorityCurrent();
+			}
 		}else {
 			throw new UserDoesNotExistException();
 		}
@@ -986,8 +991,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
     }
 
@@ -997,8 +1002,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
     }
   
@@ -1041,8 +1046,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
     }
     
@@ -1098,8 +1103,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
     }
 
@@ -1124,8 +1129,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
 	
     }
@@ -1161,8 +1166,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
 		txtDayofcancelationP.setValue(LocalDate.now());
 	}
@@ -1173,8 +1178,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
 		txtIDAccountConsignementP.setText(priorityClient.getTarjet().getIdAccount());
 		
@@ -1186,8 +1191,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
 	}
 
@@ -1197,8 +1202,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		
 		txtAmountP.setText(priorityClient.getAmount()+"");
 		
@@ -1217,12 +1222,26 @@ public class BankGUI {
     
     @FXML
     void loadSearchUserP(ActionEvent event) throws IOException {
-    	FXMLLoader fL = new FXMLLoader(getClass().getResource("SearchID.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+    	if(normalClient!=null) {
+			FXMLLoader fL = new FXMLLoader(getClass().getResource("informationUserInterfaceP.fxml"));
+			fL.setController(this);
+			Parent pane;
+			pane = fL.load();
+			menuOptionsPaneP.getChildren().clear();
+			menuOptionsPaneP.setCenter(pane);
+			txtNameUserP.setText(priorityClient.getName());
+			txtLastNameUserP.setText(priorityClient.getLastName());
+			txtIDuserP.setText(priorityClient.getId());
+			txtAccountBankUserP.setText(priorityClient.getTarjet().getIdAccount());
+			if(priorityClient.getTarjet().getType().equals(Tarjet.AHORROS)||priorityClient.getTarjet().getType().equals(Tarjet.BOTH)) {
+				tgTarjetDebitUserP.setSelected(true);
+			}
+			if(priorityClient.getTarjet().getType().equals(Tarjet.CREDIT)||priorityClient.getTarjet().getType().equals(Tarjet.BOTH)) {
+				tgTarjetCreditUserP.setSelected(true);
+			}
+			txtDayPayUserP.setValue(priorityClient.getTarjet().getDateUpdateCredit());
+			txtDayAccesBankUserP.setValue(priorityClient.getDateJoinedBank());
+		}
     }
 
     @FXML
@@ -1236,8 +1255,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
     }
 
     @FXML
@@ -1298,8 +1317,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
     }
 
     @FXML
@@ -1309,46 +1328,122 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		menuPOptionsPane.getChildren().clear();
-		menuPOptionsPane.setCenter(pane);
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
 		ObservableList<Client> observableList;
-		cbSortValueP.getItems().removeAll(cbSortValue.getItems());
+		cbSortValueP.getItems().removeAll(cbSortValueP.getItems());
 		cbSortValueP.getItems().addAll(Client.NAME,Client.ID,Client.DATE,Client.AMOUNT);
 		cbSortValueP.getSelectionModel().select(Client.NAME);
 		observableList = FXCollections.observableArrayList(bank.sortList("Unsorted", Client.NAME, true));
-		Table1.setItems(observableList);
+		TableP.setItems(observableList);
 		
 		TcCedulaP.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
 		TcNombreP.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
-		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
-		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		TcVinculacionP.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMontoP.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
 		
     }
     
-    
-    /// METODOS FILA PRIORITARIA 
-    
-    // INFORMACION DE USUARIO PRIOITARIA 
-    
+    // TABLA P 
 
- // Interfaz de informaacion de usuario
+    @FXML
+    void LoadMergesortP(ActionEvent event) {
+    	double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcendingP.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.MERGE, cbSortValueP.getValue(), ascendancy));
+		TableP.setItems(observableList);
+		
+		TcCedulaP.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombreP.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacionP.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMontoP.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTimeP.setText((finalTime-initialTime)/1000+"sg");
+    }
 
-/// ATRIBUTOS ARRIBA 
+    @FXML
+    void atrasTableInterfaceP(ActionEvent event) throws IOException {
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptionsP.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuOptionsPaneP.getChildren().clear();
+		menuOptionsPaneP.setCenter(pane);
+    }
+
+    @FXML
+    void btnDisorderP(ActionEvent event) {
+    	boolean ascendancy = isAcendingP.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList("Unsorted", "unsorted", ascendancy));
+		TableP.setItems(observableList);
+		
+		TcCedulaP.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombreP.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacionP.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMontoP.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+    }
+
+    @FXML
+    void loadHeapsortP(ActionEvent event) {
+    	double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcendingP.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.HEAP, cbSortValueP.getValue(), ascendancy));
+		TableP.setItems(observableList);
+		
+		TcCedulaP.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombreP.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacionP.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMontoP.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTimeP.setText((finalTime-initialTime)/1000+"sg");
+    }
+
+    @FXML
+    void loadQuikcsortP(ActionEvent event) {
+    	double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcendingP.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.QUICK, cbSortValueP.getValue(), ascendancy));
+		TableP.setItems(observableList);
+		
+		TcCedulaP.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombreP.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacionP.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMontoP.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTimeP.setText((finalTime-initialTime)/1000+"sg");
+    }
+
+    @FXML
+    void loadSelectionSortP(ActionEvent event) {
+    	double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcendingP.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.SELECTION, cbSortValueP.getValue(), ascendancy));
+		TableP.setItems(observableList);
+		
+		TcCedulaP.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombreP.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacionP.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMontoP.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTimeP.setText((finalTime-initialTime)/1000+"sg");
+    }
+    //Next
+    @FXML
+    void nextuser(ActionEvent event) {
+    	
+    	bank.nextNormalClient();
+    	txtNormalQueue.setText(bank.normalShift());
+    }
+    @FXML
+    void nextUserP(ActionEvent event) {
+    	
+    	bank.nextPriorityClient();
+    	txtPriorityQueue.setText(bank.priorityShift());
+    }
  	
-  
-    
-    
-    
-    
-    
-    
-    
-   
-    
-    
-
-
-
-	
-
 }

@@ -56,6 +56,7 @@
                   <Font size="40.0" />
                </font>
             </Label>
+            <Button fx:id="nextuser" layoutX="477.0" layoutY="70.0" mnemonicParsing="false" onAction="#nextuser" text="Next User" />
          </children>
       </Pane>
    </center>

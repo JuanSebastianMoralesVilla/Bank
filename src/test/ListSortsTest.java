@@ -24,9 +24,9 @@ class ListSortsTest {
 	private ArrayList<Client> arreglo;
 
 	public void setup1() {
-		cliente1 = new Client("Cristian", "Morales", "1101", Tarjet.AHORROS, "123456", 20000, LocalDate.now());
-		cliente2 = new Client("Santiago", "Hurtado", "4010", Tarjet.AHORROS, "123456", 10000, LocalDate.now());
-		cliente3 = new Client("Juan", "Morales", "3210", Tarjet.AHORROS, "123456", 30000, LocalDate.now());
+		cliente1 = new Client("Cristian", "Morales", "1101",0, Tarjet.AHORROS, "123456", 20000, LocalDate.now());
+		cliente2 = new Client("Santiago", "Hurtado", "4010",1, Tarjet.AHORROS, "123456", 10000, LocalDate.now());
+		cliente3 = new Client("Juan", "Morales", "3210",2, Tarjet.AHORROS, "123456", 30000, LocalDate.now());
 
 		arreglo = new ArrayList();
 

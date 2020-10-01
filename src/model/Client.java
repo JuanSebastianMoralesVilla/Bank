@@ -17,9 +17,10 @@ public class Client implements Comparable<Client>{
 	public final static String DATE = "date";
 	public final static String AMOUNT = "amount";
 	
-	public Client(String name,String lastName,String id,String type,String idAccount,double amount,LocalDate dateJoinedBank) {
+	public Client(String name,String lastName,String id,int priorityLevel,String type,String idAccount,double amount,LocalDate dateJoinedBank) {
 		reason = "";
 		this.name = name;
+		this.priorityLevel = priorityLevel;
 		this.lastName = lastName;
 		this.id = id;
 		this.dateJoinedBank = dateJoinedBank;

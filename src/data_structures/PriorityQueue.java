@@ -17,7 +17,7 @@ public class PriorityQueue<T extends Comparable<T>> implements IQueue<T>{
 			first = newElement;
 		}else {	
 			Elements<T> current = first;
-			if(current.getNext()==null) {
+			if(current.getNext()!=null) {
 				while(element.compareTo(current.getNext().getElement())>0) {
 					current = current.getNext();
 					if(current.getNext()==null) {

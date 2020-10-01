@@ -13,6 +13,9 @@ import javafx.scene.control.Alert.AlertType;
 public class Bank {
 
 	private String nextShift;
+	private String nextShiftP;
+	private String currentNormalShift;
+	private String currentPriorityShift;
 	private HashTable<String,Client> clients;
 	private Queue<Shift> normalQueue;
 	private PriorityQueue<Shift> priorityQueue;
@@ -20,7 +23,10 @@ public class Bank {
 	private HashTable<String,Client> delatedClients;
 	
 	public Bank() {
-		nextShift = "A00";
+		currentNormalShift="";
+		currentPriorityShift="";
+		nextShift = "A01";
+		nextShiftP = "A01";
 		clients = new HashTable<String,Client>();
 		normalQueue = new Queue<Shift>();
 		priorityQueue = new PriorityQueue<Shift>();
@@ -28,14 +34,14 @@ public class Bank {
 		undo = new Stack<String[]>();
 	}
 
-	public boolean addClient(String name,String lastName,String id,String type,String idAccount,double ammount) {
+	public boolean addClient(String name,String lastName,String id,int priorityLevel,String type,String idAccount,double ammount) {
 		boolean save=false;
 		if(name!=null&&lastName!=null&&id!=null) {
 			if(name!=""&&lastName!=""&&id!="") {
 				try {
 					Integer.parseInt(idAccount);
 					Integer.parseInt(id);
-					Client client = new Client(name,lastName,id,type,idAccount,ammount,LocalDate.now());
+					Client client = new Client(name,lastName,id,priorityLevel,type,idAccount,ammount,LocalDate.now());
 					save =clients.add(id, client);
 				}catch (NumberFormatException e) {
 					//Exist characters in the id's
@@ -57,13 +63,17 @@ public class Bank {
 	public boolean assingShift(String name,String idClient) {
 		Client client = searchUser(name,idClient);
 		if(client!= null) {
-			Shift shift = new Shift(nextShift,client);
+			
 			if(client.getPriorityLevel()==0) {
+				Shift shift = new Shift(nextShift,client);
 				normalQueue.enqueue(shift);
+				nextShift();
 			}else {
+				Shift shift = new Shift(nextShiftP,client);
 				priorityQueue.enqueue(shift);
+				nextShiftP();
 			}
-			nextShift();
+			
 			return true;
 		}
 		return false;
@@ -77,7 +87,11 @@ public class Bank {
 		number++;
 		number = number%100;
 		if(number==0) {
-			letter++;
+			if(letter!='Z') {
+				letter++;
+			}else {
+				letter = 'A';
+			}
 		}
 		result += letter;
 		if(number<10) {
@@ -86,7 +100,29 @@ public class Bank {
 		result = result+number;
 		nextShift=result;
 	}
-	
+	private void nextShiftP() {
+		String result = "";
+		char letter = nextShiftP.charAt(0);
+		String numberAux = (nextShiftP.charAt(1)+"")+(nextShiftP.charAt(2)+"");
+		int number = Integer.parseInt(numberAux);
+		number++;
+		number = number%100;
+		if(number==0) {
+			if(letter!='Z') {
+				letter++;
+			}else {
+				letter = 'A';
+			}
+			
+			
+		}
+		result += letter;
+		if(number<10) {
+			result = result+"0";
+		}
+		result = result+number;
+		nextShift=result;
+	}
 	
 	public double retirement(double amount,String idAccount) throws NoUserException {
 		Client client = null;
@@ -171,7 +207,7 @@ public class Bank {
 
 	public boolean payTarjet(String idAccount) {
 		boolean result = false;
-		
+		String time=" ";
 		Client client = null;
 		try {
 			if(normalQueue.consult().getClient().getId().equals(idAccount)) {
@@ -179,13 +215,14 @@ public class Bank {
 			}else if(priorityQueue.consult().getClient().getId().equals(idAccount)) {
 				client = priorityQueue.consult().getClient();
 			}
+			time = client.getTarjet().getDateUpdateCredit().toString();
 			client.getTarjet().setDateUpdateCredit(LocalDate.now());
 			result = true;
 		}catch(NullPointerException e) {
 			
 		}
 		if(result) {
-			String[] cancelAccount = {"payTarjet",idAccount};
+			String[] cancelAccount = {"payTarjet",idAccount,time};
 			undo.push(cancelAccount);
 		}
 		return result;
@@ -238,10 +275,59 @@ public class Bank {
 		}
 		return array;
 	}
+	public Client normalCurrent() {
+		return normalQueue.consult().getClient();
+	}
+	public Client priorityCurrent() {
+		return priorityQueue.consult().getClient();
+	}
+	public String normalShift() {
+		return currentNormalShift;
+	}
+	public String priorityShift() {
+		return currentPriorityShift;
+	}
+	public void nextNormalClient() {
+		normalQueue.dequeue();
+		currentPriorityShift = normalQueue.consult().getIdShifth();
+	}
+	public void nextPriorityClient() {
+		priorityQueue.dequeue();
+		currentPriorityShift = priorityQueue.consult().getIdShifth();
+	}
 	
 	public boolean undo() {
 		boolean result = false;
 		String[] actualProcess = undo.pop();
+		if(actualProcess!=null) {
+			Client client;
+			double amount=0;
+			switch(actualProcess[0]) {
+			case "addClient":
+				clients.remove(actualProcess[1]);
+				break;
+			case "retirement":
+				amount = Double.parseDouble(actualProcess[1]);
+				client = clients.search(actualProcess[2]);
+				amount += client.getAmount();
+				client.getTarjet().setAmount(amount);
+				break;
+			case "consignment":
+				amount = Double.parseDouble(actualProcess[1]);
+				client = clients.search(actualProcess[2]);
+				amount -= client.getAmount();
+				client.getTarjet().setAmount(amount);
+				break;
+			case "cancelAccount":
+				client = delatedClients.search(actualProcess[1]);
+				clients.add(actualProcess[1], client);
+				break;
+			case "payTarjet":
+				client = clients.search(actualProcess[1]);
+				client.getTarjet().setDateUpdateCredit(LocalDate.parse(actualProcess[1]));
+				break;
+			}
+		}
 		return result;
 	}
 
