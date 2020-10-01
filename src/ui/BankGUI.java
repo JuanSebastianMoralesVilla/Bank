@@ -1,16 +1,19 @@
 package ui;
 
+import customExceptions.NoUserException;
 import customExceptions.UserAlreadyExistException;
+
 import customExceptions.UserDoesNotExistException;
 import customExceptions.ValuesIsEmptyException;
-
+import data_structures.ListSorts;
 
 import java.io.IOException;
 import java.time.LocalDate;
 
-import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -18,11 +21,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -33,6 +35,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.cell.PropertyValueFactory;
 import model.Bank;
 import model.Client;
 import model.Tarjet;
@@ -43,6 +46,48 @@ public class BankGUI {
 	private Client normalClient;
 	private Client priorityClient;
 	
+	//InnfoUserP
+    @FXML
+    private TextField txtNameUserP;
+
+    @FXML
+    private TextField txtLastNameUserP;
+
+    @FXML
+    private TextField txtIDuserP;
+
+    @FXML
+    private TextField txtAccountBankUserP;
+
+    @FXML
+    private RadioButton tgTarjetDebitUserP;
+
+    @FXML
+    private RadioButton tgTarjetCreditUserP;
+
+    @FXML
+    private DatePicker txtDayPayUserP;
+
+    @FXML
+    private DatePicker txtDayAccesBankUserP;
+
+    @FXML
+    private Button btAtrasInformationUserP;
+
+    @FXML
+    private Button btInformationTableP;
+
+	
+	//SeachIDP
+	   @FXML
+	    private Button btSearchP;
+
+	    @FXML
+	    private TextField txtidP;
+
+	    @FXML
+	    private Button btAtrasSearchP;
+	    	
 	@FXML
     private Label currentShift;
 	//Shift Screen 
@@ -140,16 +185,35 @@ public class BankGUI {
 
 	@FXML
 	private Button btcreateUser;
+	
+	//Table
+    @FXML
+    private ComboBox<String> cbSortValue;
+
+    @FXML
+    private CheckBox isAcending;
+
+    @FXML
+    private Button btnDisorder;
+    
+    @FXML
+    private Label labelTime;
+
 
 //Constructor
 
 	public BankGUI(Stage stage, Bank bank) {
+		normalClient = new Client("Cristian", "Morales", "1101", Tarjet.AHORROS, "123456", 20000, LocalDate.now());
+		priorityClient = new Client("Santiago", "Hurtado", "4010", Tarjet.AHORROS, "123456", 10000, LocalDate.now());
+		bank.addClient("Santiago", "Hurtado", "4010", Tarjet.AHORROS, "123456", 10000);
+		bank.addClient("Cristian", "Morales", "1101", Tarjet.AHORROS, "123456", 20000);
+		this.bank = bank;
 		menuOptionsPane = new BorderPane();
 		menuPOptionsPane = new BorderPane();
 	}
 
 	public void init(ActionEvent event) throws IOException {
-
+		
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
 		fL.setController(this);
 		Parent pane;
@@ -202,29 +266,7 @@ public class BankGUI {
 		menuPOptionsPane.setCenter(paneMenuPOptions);
 		stageMenuP.sizeToScene();
 		stageMenuP.setTitle("Menu Options Priority Queue");
-		/*
-		FXMLLoader fLMenuP = new FXMLLoader(getClass().getResource("MenuPOptions.fxml"));
-		fLMenuP.setController(this);
-		Parent paneMenuOptionsP;
-		paneMenuOptionsP = fLMenuP.load();
-		Scene sceneMenuP = new Scene(paneMenuOptionsP);
-		sceneMenuP.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm());
-		Stage stageMenuP = new Stage();
-		stageMenuP.setScene(sceneMenuP);
-		stageMenuP.show();
 		
-		*/
-		/*
-		 * FXMLLoader f= new FXMLLoader(getClass().getResource("CreateUser1.fxml"));
-		 * f.setController(this); Parent root= f.load(); Stage st=new Stage();
-		 * 
-		 * sc.getStylesheets().add(getClass().getResource("iconos.css").toExternalForm()); 
-		 * st.initModality(Modality.APPLICATION_MODAL);
-		 * st.initStyle(StageStyle.DECORATED); st.setScene(sc);
-		 * 
-		 * st.show();
-		 * 
-		 */
 	}
 
 	// create User 2
@@ -415,18 +457,31 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
+		
 	}
-
+		
 	@FXML
 	void loadTableInformationUser(ActionEvent event) throws IOException {
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("TableInterface.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
+		ObservableList<Client> observableList;
+		cbSortValue.getItems().removeAll(cbSortValue.getItems());
+		cbSortValue.getItems().addAll(Client.NAME,Client.ID,Client.DATE,Client.AMOUNT);
+		cbSortValue.getSelectionModel().select(Client.NAME);
+		observableList = FXCollections.observableArrayList(bank.sortList("Unsorted", Client.NAME, true));
+		Table1.setItems(observableList);
+		
+		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		
 	}
 
 	@FXML
@@ -437,30 +492,25 @@ public class BankGUI {
 		pane = fL.load();
 		myPane.getChildren().clear();
 		myPane.setCenter(pane);
-		/*
-		 * FXMLLoader fxmlLoader = new
-		 * FXMLLoader(getClass().getResource("MenuOptions.fxml"));
-		 * fxmlLoader.setController(this); Parent root1 = (Parent) fxmlLoader.load();
-		 * Stage stage = new Stage(); stage.setScene(new Scene(root1)); stage.show();
-		 */
+		
 	}
 
 	// Interfaz de Tabla de ordenamientos
 
 	@FXML
-	private TableView<?> Table1;
+	private TableView<Client> Table1;
 
 	@FXML
-	private TableColumn<?, ?> TcNombre;
+	private TableColumn<Client, String> TcNombre;
 
 	@FXML
-	private TableColumn<?, ?> TcCedula;
+	private TableColumn<Client, String> TcCedula;
 
 	@FXML
-	private TableColumn<?, ?> TcVinculacion;
+	private TableColumn<Client,LocalDate> TcVinculacion;
 
 	@FXML
-	private TableColumn<?, ?> TcMonto;
+	private TableColumn<Client, Double> TcMonto;
 
 	@FXML
 	private Button BtSelecition;
@@ -480,34 +530,90 @@ public class BankGUI {
 	@FXML
 	void atrasTableInterface(ActionEvent event) throws IOException {
 
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("SearchID.fxml"));
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
 
 	}
 
 	@FXML
 	void LoadMergesort(ActionEvent event) {
-
+		double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcending.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.MERGE, cbSortValue.getValue(), ascendancy));
+		Table1.setItems(observableList);
+		
+		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTime.setText((finalTime-initialTime)/1000+"sg");
 	}
 
 	@FXML
 	void loadHeapsort(ActionEvent event) {
-
+		double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcending.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.HEAP, cbSortValue.getValue(), ascendancy));
+		Table1.setItems(observableList);
+		
+		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTime.setText((finalTime-initialTime)/1000+"sg");
 	}
 
 	@FXML
 	void loadQuikcsort(ActionEvent event) {
-
+		double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcending.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.QUICK, cbSortValue.getValue(), ascendancy));
+		Table1.setItems(observableList);
+		
+		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTime.setText((finalTime-initialTime)/1000+"sg");
 	}
 
 	@FXML
 	void loadSelectionSort(ActionEvent event) {
-
+		double initialTime = System.currentTimeMillis();
+		boolean ascendancy = isAcending.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList(ListSorts.SELECTION, cbSortValue.getValue(), ascendancy));
+		Table1.setItems(observableList);
+		
+		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		double finalTime = System.currentTimeMillis();
+		labelTime.setText((finalTime-initialTime)/1000+"sg");
 	}
+	@FXML
+    void btnDisorder(ActionEvent event) {
+		boolean ascendancy = isAcending.isSelected();
+		ObservableList<Client> observableList;
+		observableList = FXCollections.observableArrayList(bank.sortList("Unsorted", "unsorted", ascendancy));
+		Table1.setItems(observableList);
+		
+		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+    }
 
 	// interfaz prioriatria de turno
 
@@ -575,9 +681,9 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
-
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
+		txtDayofcancelation.setValue(LocalDate.now());
 	}
 
 	@FXML
@@ -586,8 +692,10 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
+		txtIDAccountConsignement.setText(normalClient.getTarjet().getIdAccount());
+		
 	}
 
 	@FXML
@@ -596,8 +704,9 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
+		
 	}
 
 	@FXML
@@ -606,8 +715,10 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
+		txtAmount.setText(normalClient.getAmount()+"");
+		
 	}
 
 	@FXML
@@ -625,12 +736,27 @@ public class BankGUI {
 
 	@FXML
 	void loadSearchUser(ActionEvent event) throws IOException {
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("SearchID.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		menuOptionsPane.getChildren().clear();
-		menuOptionsPane.setCenter(pane);
+		if(normalClient!=null) {
+			FXMLLoader fL = new FXMLLoader(getClass().getResource("informationUserInterface.fxml"));
+			fL.setController(this);
+			Parent pane;
+			pane = fL.load();
+			menuOptionsPane.getChildren().clear();
+			menuOptionsPane.setCenter(pane);
+			txtNameUser.setText(normalClient.getName());
+			txtLastNameUser.setText(normalClient.getLastName());
+			txtIDuser.setText(normalClient.getId());
+			txtAccountBankUser.setText(normalClient.getTarjet().getIdAccount());
+			if(normalClient.getTarjet().getType().equals(Tarjet.AHORROS)||normalClient.getTarjet().getType().equals(Tarjet.BOTH)) {
+				tgTarjetDebitUser.setSelected(true);
+			}
+			if(normalClient.getTarjet().getType().equals(Tarjet.CREDIT)||normalClient.getTarjet().getType().equals(Tarjet.BOTH)) {
+				tgTarjetCreditUser.setSelected(true);
+			}
+			txtDayPayUser.setValue(normalClient.getTarjet().getDateUpdateCredit());
+			txtDayAccesBankUser.setValue(normalClient.getDateJoinedBank());
+		}
+		
 	}
 
 	// undo
@@ -666,14 +792,27 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
 	}
 
 	@FXML
-	void retirementAction(ActionEvent event) {
-		JOptionPane.showMessageDialog(null, "Retiro Confirmada");
+	void retirementAction(ActionEvent event) throws ValuesIsEmptyException, NoUserException {
+		if(txtRetirement.getText().isEmpty()) {
+			throw new ValuesIsEmptyException();
+		}
+		try {
+			double amount = normalClient.getAmount();
+			if(amount<=normalClient.getAmount()) {
+				bank.retirement(amount, normalClient.getId());
+				JOptionPane.showMessageDialog(null, "Retiro Confirmada");
+			}
+			
+		}catch(NumberFormatException e) {
+			throw new ValuesIsEmptyException();
+		}
 	}
+		
 
 	// interfaz de pago de tarjeta
 
@@ -693,8 +832,29 @@ public class BankGUI {
 	private Button btpreviousPay;
 
 	@FXML
-	void confirmPay(ActionEvent event) {
-		JOptionPane.showMessageDialog(null, "Pago Confirmado");
+	void confirmPay(ActionEvent event) throws ValuesIsEmptyException {
+		if(txtAmountPay.getText().isEmpty() || (!rbEfective.isSelected()&&!rbAC.isSelected())) {
+			throw new ValuesIsEmptyException();
+		}
+			
+		try{
+			double amount = Double.parseDouble(txtAmountPay.getText());
+			if(rbAC.isSelected()) {
+				if(amount<=normalClient.getAmount()) {
+					JOptionPane.showMessageDialog(null, "Pago Confirmado");
+				}else {
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("ERROR");
+					alert.setHeaderText("This user does not have enough money");
+					alert.show();
+				}
+			}else {
+				JOptionPane.showMessageDialog(null, "Pago Confirmado");
+			}
+			
+		}catch(NumberFormatException e) {
+			throw new ValuesIsEmptyException();
+		}
 	}
 
 	@FXML
@@ -703,8 +863,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
 	}
 
 	// Interfaz de consignacion
@@ -722,8 +882,21 @@ public class BankGUI {
 	private Button btPreviousConsignemeent;
 
 	@FXML
-	void consignationAction(ActionEvent event) {
-		JOptionPane.showMessageDialog(null, "Consignacion Confirmada");
+	void consignationAction(ActionEvent event) throws ValuesIsEmptyException, NoUserException {
+		String value = txtMoneytoConsinement.getText();
+		double amount=0;
+		if(value=="") {
+			throw new ValuesIsEmptyException();
+		}
+		try {
+			amount = Double.parseDouble(value);
+			double valueActual=bank.consignment(amount, normalClient.getId());
+			JOptionPane.showMessageDialog(null, "Consignacion Confirmada, su saldo actual es: "+valueActual);
+		}catch(NumberFormatException e) {
+			throw new ValuesIsEmptyException();
+		}
+		
+		
 	}
 
 	@FXML
@@ -732,8 +905,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
 	}
 
 	// Interfaz Cancel account
@@ -751,9 +924,19 @@ public class BankGUI {
 	private Button btPreviuosCancel;
 
 	@FXML
-	void cancelAccountAction(ActionEvent event) {
+	void cancelAccountAction(ActionEvent event) throws ValuesIsEmptyException, IOException {
+		if(txtAreaMotiveofCancel.getText().isEmpty()) {
+			throw new ValuesIsEmptyException();
+		}
+		bank.cancelAccount(normalClient.getId(), txtAreaMotiveofCancel.getText());
 		JOptionPane.showMessageDialog(null, "Cancelacion Confirmada");
 		System.out.println("CANCELACION CONFIRMADA");
+		FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
 	}
 
 	@FXML
@@ -762,8 +945,8 @@ public class BankGUI {
 		fL.setController(this);
 		Parent pane;
 		pane = fL.load();
-		myPane.getChildren().clear();
-		myPane.setCenter(pane);
+		menuOptionsPane.getChildren().clear();
+		menuOptionsPane.setCenter(pane);
 	}
 	//MenuOptionesPriority
 	@FXML
@@ -800,5 +983,59 @@ public class BankGUI {
     void undoActionP(ActionEvent event) {
 
     }
+    //SearchIDP
+    @FXML
+    void btAtrasP(ActionEvent event) throws IOException {
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuPOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+    }
+
+    @FXML
+    void btSearchIDtoOptionsP(ActionEvent event) throws ValuesIsEmptyException {
+    	if(txtidP.getText()=="") {
+    		throw new ValuesIsEmptyException();
+    	}else {
+    		
+    	}
+    }
+    
+    //InfoUserP
+    @FXML
+    void loadMenuOptionsINformationUserP(ActionEvent event) throws IOException {
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("MenuOptions.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+    }
+
+    @FXML
+    void loadTableInformationUserP(ActionEvent event) throws IOException {
+    	
+    	FXMLLoader fL = new FXMLLoader(getClass().getResource("TableInterface.fxml"));
+		fL.setController(this);
+		Parent pane;
+		pane = fL.load();
+		menuPOptionsPane.getChildren().clear();
+		menuPOptionsPane.setCenter(pane);
+		ObservableList<Client> observableList;
+		cbSortValueP.getItems().removeAll(cbSortValue.getItems());
+		cbSortValueP.getItems().addAll(Client.NAME,Client.ID,Client.DATE,Client.AMOUNT);
+		cbSortValueP.getSelectionModel().select(Client.NAME);
+		observableList = FXCollections.observableArrayList(bank.sortList("Unsorted", Client.NAME, true));
+		Table1.setItems(observableList);
+		
+		TcCedula.setCellValueFactory(new PropertyValueFactory<Client, String>("id"));
+		TcNombre.setCellValueFactory(new PropertyValueFactory<Client, String>("name"));
+		TcVinculacion.setCellValueFactory(new PropertyValueFactory<Client, LocalDate>("dateJoinedBank"));
+		TcMonto.setCellValueFactory(new PropertyValueFactory<Client, Double>("amount"));
+		
+    }
+    
 
 }

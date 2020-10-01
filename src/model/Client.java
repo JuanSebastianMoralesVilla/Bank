@@ -9,9 +9,6 @@ public class Client implements Comparable<Client>{
 	private int priorityLevel;
 	private LocalDate dateJoinedBank;
 	
-
-	
-
 	private Tarjet tarjet;
 	private String reason;
 	
@@ -27,6 +24,10 @@ public class Client implements Comparable<Client>{
 		this.id = id;
 		this.dateJoinedBank = dateJoinedBank;
 		tarjet = new Tarjet(type,idAccount,amount,dateJoinedBank);
+	}
+	
+	public double getAmount() {
+		return tarjet.getAmount();
 	}
 
 	public String getName() {

@@ -11,12 +11,12 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Prueba" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btConfirnCancel" layoutX="233.0" layoutY="397.0" mnemonicParsing="false" onAction="#cancelAccountAction" prefHeight="25.0" prefWidth="210.0" text="Confirmar cancelacion de cuenta" />
-            <TextArea fx:id="txtAreaMotiveofCancel" layoutX="253.0" layoutY="163.0" prefHeight="213.0" prefWidth="170.0" />
+            <Button fx:id="btConfirnCancelP" layoutX="233.0" layoutY="397.0" mnemonicParsing="false" onAction="#cancelAccountActionP" prefHeight="25.0" prefWidth="210.0" text="Confirmar cancelacion de cuenta" />
+            <TextArea fx:id="txtAreaMotiveofCancelP" layoutX="253.0" layoutY="163.0" prefHeight="213.0" prefWidth="170.0" />
             <Label layoutX="129.0" layoutY="172.0" text="Motivo de cancelacion:" />
             <Label layoutX="133.0" layoutY="82.0" text="Fecha de cancelacion:" />
-            <DatePicker fx:id="txtDayofcancelation" disable="true" layoutX="251.0" layoutY="78.0" />
-            <Button fx:id="btPreviuosCancel" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadMenuCancel" prefHeight="49.0" prefWidth="60.0" styleClass="btCasa" />
+            <DatePicker fx:id="txtDayofcancelationP" disable="true" layoutX="251.0" layoutY="78.0" />
+            <Button fx:id="btPreviuosCancelP" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadMenuCancelP" prefHeight="49.0" prefWidth="60.0" styleClass="btCasa" />
          </children>
       </Pane>
    </center>

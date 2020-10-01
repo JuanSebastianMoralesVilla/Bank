@@ -12,10 +12,10 @@
          <children>
             <Label layoutX="173.0" layoutY="103.0" text="Dinero a consignar:" />
             <Label layoutX="173.0" layoutY="151.0" text="Numero de cuenta:" />
-            <TextField fx:id="txtMoneytoConsinement" layoutX="286.0" layoutY="99.0" />
-            <TextField fx:id="txtIDAccountConsignement" disable="true" layoutX="286.0" layoutY="147.0" />
-            <Button fx:id="btConsignementBill" layoutX="249.0" layoutY="228.0" mnemonicParsing="false" onAction="#consignationAction" text="Confirmar Consignacion" />
-            <Button fx:id="btPreviousConsignemeent" layoutX="260.0" layoutY="315.0" mnemonicParsing="false" onAction="#loadMenuConsignation" prefHeight="50.0" prefWidth="61.0" styleClass="btCasa" />
+            <TextField fx:id="txtMoneytoConsinementP" layoutX="286.0" layoutY="99.0" />
+            <TextField fx:id="txtIDAccountConsignementP" disable="true" layoutX="286.0" layoutY="147.0" />
+            <Button fx:id="btConsignementBillP" layoutX="249.0" layoutY="228.0" mnemonicParsing="false" onAction="#consignationActionP" text="Confirmar Consignacion" />
+            <Button fx:id="btPreviousConsignemeentP" layoutX="260.0" layoutY="315.0" mnemonicParsing="false" onAction="#loadMenuConsignationP" prefHeight="50.0" prefWidth="61.0" styleClass="btCasa" />
          </children>
       </Pane>
    </center>

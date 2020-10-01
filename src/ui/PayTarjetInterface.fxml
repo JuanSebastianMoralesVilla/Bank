@@ -21,7 +21,7 @@
             <RadioButton fx:id="rbAC" layoutX="304.0" layoutY="218.0" mnemonicParsing="false" text="Cuenta de ahorros" toggleGroup="$tgTypePay" />
             <Label layoutX="109.0" layoutY="192.0" text="Tipo de pago" />
             <Button fx:id="btpreviousPay" layoutX="245.0" layoutY="330.0" mnemonicParsing="false" onAction="#loadMenuPay" prefHeight="42.0" prefWidth="56.0" styleClass="btCasa" />
-            <Button layoutX="248.0" layoutY="253.0" mnemonicParsing="false" onAction="#confirmPay" text="Confirmar pago" />
+            <Button layoutX="223.0" layoutY="256.0" mnemonicParsing="false" onAction="#confirmPay" text="Confirmar pago" />
          </children>
       </Pane>
    </center>

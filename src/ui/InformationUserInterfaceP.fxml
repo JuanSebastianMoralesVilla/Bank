@@ -15,10 +15,10 @@
    <center>
       <Pane prefHeight="200.0" prefWidth="200.0" styleClass="Prueba" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="txtNameUser" disable="true" layoutX="112.0" layoutY="113.0" />
-            <TextField fx:id="txtLastNameUser" disable="true" layoutX="112.0" layoutY="166.0" />
-            <TextField fx:id="txtIDuser" disable="true" layoutX="112.0" layoutY="215.0" />
-            <TextField fx:id="txtAccountBankUser" disable="true" layoutX="112.0" layoutY="262.0" />
+            <TextField fx:id="txtNameUserP" disable="true" layoutX="112.0" layoutY="113.0" />
+            <TextField fx:id="txtLastNameUserP" disable="true" layoutX="112.0" layoutY="166.0" />
+            <TextField fx:id="txtIDuserP" disable="true" layoutX="112.0" layoutY="215.0" />
+            <TextField fx:id="txtAccountBankUserP" disable="true" layoutX="112.0" layoutY="262.0" />
             <Label layoutX="65.0" layoutY="117.0" text="Nombre:" />
             <Label layoutX="65.0" layoutY="170.0" text="Apellido:" />
             <Label layoutX="155.0" layoutY="31.0" prefHeight="35.0" prefWidth="319.0" text="Informacion del cliente">
@@ -28,19 +28,19 @@
             </Label>
             <Label layoutX="72.0" layoutY="219.0" text="Cedula:" />
             <Label layoutX="22.0" layoutY="266.0" text="Cuenta Bancaria:" />
-            <RadioButton fx:id="tgTarjetDebitUser" disable="true" layoutX="386.0" layoutY="117.0" mnemonicParsing="false" text=" Ahorros">
+            <RadioButton fx:id="tgTarjetDebitUserP" disable="true" layoutX="386.0" layoutY="117.0" mnemonicParsing="false" text=" Ahorros">
                <toggleGroup>
                   <ToggleGroup fx:id="TypeTarjetUserTG" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="tgTarjetCreditUser" disable="true" layoutX="492.0" layoutY="117.0" mnemonicParsing="false" text="Tarjeta credito" toggleGroup="$TypeTarjetUserTG" />
+            <RadioButton fx:id="tgTarjetCreditUserP" disable="true" layoutX="492.0" layoutY="117.0" mnemonicParsing="false" text="Tarjeta credito" toggleGroup="$TypeTarjetUserTG" />
             <Label layoutX="435.0" layoutY="88.0" text="Tipo de Cuenta" />
-            <DatePicker fx:id="txtDayPayUser" disable="true" layoutX="389.0" layoutY="179.0" />
+            <DatePicker fx:id="txtDayPayUserP" disable="true" layoutX="389.0" layoutY="179.0" />
             <Label layoutX="394.0" layoutY="158.0" text="Fecha de pago tarjeta de credito" />
             <Label layoutX="394.0" layoutY="219.0" text="Fecha de ingreso al banco" />
-            <DatePicker fx:id="txtDayAccesBankUser" disable="true" layoutX="389.0" layoutY="250.0" />
+            <DatePicker fx:id="txtDayAccesBankUserP" disable="true" layoutX="389.0" layoutY="250.0" />
             <Separator layoutX="308.0" layoutY="92.0" orientation="VERTICAL" prefHeight="200.0" />
-            <Button fx:id="btAtrasInformationUser" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadMenuOptionsINformationUser" text="Atras" />
-            <Button fx:id="btInformationTable" layoutX="419.0" layoutY="350.0" mnemonicParsing="false" onAction="#loadTableInformationUser" text="Ver informacion en tabla" />
+            <Button fx:id="btAtrasInformationUserP" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadMenuOptionsINformationUserP" text="Atras" />
+            <Button fx:id="btInformationTableP" layoutX="419.0" layoutY="350.0" mnemonicParsing="false" onAction="#loadTableInformationUserP" text="Ver informacion en tabla" />
          </children>
       </Pane>
    </center>

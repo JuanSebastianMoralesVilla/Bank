@@ -12,10 +12,10 @@
          <children>
             <Label layoutX="218.0" layoutY="151.0" text="Cuanto desea retirar:" />
             <Label layoutX="218.0" layoutY="101.0" text="Saldo Disponible:" />
-            <TextField fx:id="txtAmount" editable="false" layoutX="218.0" layoutY="118.0" />
+            <TextField fx:id="txtAmount" disable="true" editable="false" layoutX="218.0" layoutY="118.0" />
             <TextField fx:id="txtRetirement" layoutX="218.0" layoutY="175.0" />
             <Button fx:id="btpreviousRetirement" layoutX="262.0" layoutY="308.0" mnemonicParsing="false" onAction="#loadMenuRetirement" prefHeight="51.0" prefWidth="60.0" styleClass="btCasa" />
-            <Button fx:id="btConfirmRetirement" layoutX="265.0" layoutY="225.0" mnemonicParsing="false" onAction="#retirementAction" text="Confirmar" />
+            <Button fx:id="btConfirmRetirement" layoutX="258.0" layoutY="224.0" mnemonicParsing="false" onAction="#retirementAction" text="Confirmar" />
          </children>
       </Pane>
    </center>

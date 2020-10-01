@@ -5,7 +5,10 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import comparators.*;
+import customExceptions.NoUserException;
 import data_structures.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 public class Bank {
 
@@ -22,6 +25,7 @@ public class Bank {
 		normalQueue = new Queue<Shift>();
 		priorityQueue = new PriorityQueue<Shift>();
 		delatedClients = new HashTable<String,Client>();
+		undo = new Stack<String[]>();
 	}
 
 	public boolean addClient(String name,String lastName,String id,String type,String idAccount,double ammount) {
@@ -84,7 +88,7 @@ public class Bank {
 	}
 	
 	
-	public double retirement(double amount,String idAccount) {
+	public double retirement(double amount,String idAccount) throws NoUserException {
 		Client client = null;
 		
 		try {
@@ -96,14 +100,20 @@ public class Bank {
 					actualAmount -= amount;
 					client.getTarjet().setAmount(actualAmount);
 				}else {
-					//haven't enought money
+					Alert alert = new Alert(AlertType.ERROR);
+					alert.setTitle("ERROR");
+					alert.setHeaderText("This user does not have enough money");
+					alert.show();
 				}
 			}else {
-				//User haven't a save account
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("ERROR");
+				alert.setHeaderText("This user haven't a saving account");
+				alert.show();
 			}
 			
 		}catch(NullPointerException e) {
-			
+			throw new NoUserException();
 		}
 		
 		String[] retirement = {"retirement",amount+"",idAccount};
@@ -112,7 +122,7 @@ public class Bank {
 	}
 	
 
-	public double consignment(double amount, String idAccount) {
+	public double consignment(double amount, String idAccount) throws NoUserException {
 		Client client = null;
 		
 		try {
@@ -127,12 +137,16 @@ public class Bank {
 				actualAmount += amount;
 				client.getTarjet().setAmount(actualAmount);
 			}else {
-				//User haven't a save account
+				Alert alert = new Alert(AlertType.ERROR);
+				alert.setTitle("ERROR");
+				alert.setHeaderText("This user haven't a saving account");
+				alert.show();
+				
 			}
 			
 			
 		}catch(NullPointerException e) {
-			
+			throw new NoUserException();
 		}
 		String[] consignment = {"consignment",amount+"",idAccount};
 		undo.push(consignment);

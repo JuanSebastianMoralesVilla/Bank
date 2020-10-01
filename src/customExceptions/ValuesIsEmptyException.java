@@ -9,7 +9,7 @@ public class ValuesIsEmptyException extends Exception{
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("EMPTY");
 		alert.setHeaderText("BANK");
-		alert.setContentText("Informacion Incorrecta");
+		alert.setContentText("Incorrect information");
 
 		alert.showAndWait();
 	}
