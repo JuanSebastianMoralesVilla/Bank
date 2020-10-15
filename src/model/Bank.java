@@ -14,8 +14,8 @@ public class Bank {
 
 	private String nextShift;
 	private String nextShiftP;
-	private String currentNormalShift;
-	private String currentPriorityShift;
+	private Shift currentNormalClient;
+	private Shift currentPriorityClient;
 	private HashTable<String,Client> clients;
 	private Queue<Shift> normalQueue;
 	private PriorityQueue<Shift> priorityQueue;
@@ -23,15 +23,41 @@ public class Bank {
 	private HashTable<String,Client> delatedClients;
 	
 	public Bank() {
-		currentNormalShift="";
-		currentPriorityShift="";
-		nextShift = "A01";
-		nextShiftP = "A01";
+		nextShift = "A00";
+		nextShiftP = "A00";
 		clients = new HashTable<String,Client>();
 		normalQueue = new Queue<Shift>();
 		priorityQueue = new PriorityQueue<Shift>();
 		delatedClients = new HashTable<String,Client>();
 		undo = new Stack<String[]>();
+		Client client = new Client("Santiago","Hurtado","1234",0,Tarjet.AHORROS,"1234",1234,LocalDate.now());
+		clients.add("1234", client);
+		client = new Client("Sebastian","Morales","4321",1,Tarjet.AHORROS,"1234",1234,LocalDate.now());
+		clients.add("4321", client);
+		client = new Client("Esteban","Yusu","56789",2,Tarjet.AHORROS,"1234",1234,LocalDate.now());
+		clients.add("56789", client);
+		client = new Client("Super","Aristi","98765",3,Tarjet.AHORROS,"1234",1234,LocalDate.now());
+		clients.add("98765", client);
+		client = searchUser("Sebastian","4321");
+		Shift shift = new Shift(nextShiftP,client);
+		priorityQueue.enqueue(shift);
+		nextShiftP();
+		client = searchUser("Esteban","56789");
+		 shift = new Shift(nextShiftP,client);
+		priorityQueue.enqueue(shift);
+		nextShiftP();
+		client = searchUser("Super","98765");
+		 shift = new Shift(nextShiftP,client);
+		priorityQueue.enqueue(shift);
+		nextShiftP();
+		client = searchUser("Esteban","56789");
+		 shift = new Shift(nextShiftP,client);
+		priorityQueue.enqueue(shift);
+		nextShiftP();
+		client = searchUser("Sebastian","4321");
+		 shift = new Shift(nextShiftP,client);
+		priorityQueue.enqueue(shift);
+		nextShiftP();
 	}
 
 	public boolean addClient(String name,String lastName,String id,int priorityLevel,String type,String idAccount,double ammount) {
@@ -121,19 +147,17 @@ public class Bank {
 			result = result+"0";
 		}
 		result = result+number;
-		nextShift=result;
+		nextShiftP=result;
 	}
 	
 	public double retirement(double amount,String idAccount) throws NoUserException {
 		Client client = null;
-		
 		try {
-			
 			client = clients.search(idAccount);
 			if(client.getTarjet().getType().equals(Tarjet.AHORROS)||client.getTarjet().getType().equals(Tarjet.BOTH)) {
 				double actualAmount = client.getTarjet().getAmount();
 				if(actualAmount>=amount) {
-					actualAmount -= amount;
+					actualAmount =  actualAmount-amount;
 					client.getTarjet().setAmount(actualAmount);
 				}else {
 					Alert alert = new Alert(AlertType.ERROR);
@@ -163,10 +187,10 @@ public class Bank {
 		
 		try {
 			
-			if(normalQueue.consult().getClient().getId().equals(idAccount)) {
-				client = normalQueue.consult().getClient();
-			}else if(priorityQueue.consult().getClient().getId().equals(idAccount)) {
-				client = priorityQueue.consult().getClient();
+			if(currentNormalClient.getClient().getId().equals(idAccount)) {
+				client = currentNormalClient.getClient();
+			}else if(currentPriorityClient.getClient().getId().equals(idAccount)) {
+				client = currentPriorityClient.getClient();
 			}
 			if(client.getTarjet().getType().equals(Tarjet.AHORROS)||client.getTarjet().getType().equals(Tarjet.BOTH)) {
 				double actualAmount = client.getTarjet().getAmount();
@@ -210,10 +234,10 @@ public class Bank {
 		String time=" ";
 		Client client = null;
 		try {
-			if(normalQueue.consult().getClient().getId().equals(idAccount)) {
-				client = normalQueue.consult().getClient();
-			}else if(priorityQueue.consult().getClient().getId().equals(idAccount)) {
-				client = priorityQueue.consult().getClient();
+			if(currentNormalClient.getClient().getId().equals(idAccount)) {
+				client = currentNormalClient.getClient();
+			}else if(currentPriorityClient.getClient().getId().equals(idAccount)) {
+				client = currentPriorityClient.getClient();
 			}
 			time = client.getTarjet().getDateUpdateCredit().toString();
 			client.getTarjet().setDateUpdateCredit(LocalDate.now());
@@ -276,24 +300,58 @@ public class Bank {
 		return array;
 	}
 	public Client normalCurrent() {
-		return normalQueue.consult().getClient();
+		/*if(normalQueue.consult()!=null) {
+			return normalQueue.consult().getClient();
+		}
+		*/
+		if(currentNormalClient!=null) {
+			return currentNormalClient.getClient();
+		}
+		return null;
 	}
 	public Client priorityCurrent() {
-		return priorityQueue.consult().getClient();
+		/*if(priorityQueue.consult()!=null) {
+			return priorityQueue.consult().getClient();
+		}
+		*/
+		if(currentPriorityClient!=null) {
+			return currentPriorityClient.getClient();
+		}
+		return null;
+		
 	}
 	public String normalShift() {
-		return currentNormalShift;
+		/*
+		if(normalQueue.consult()!=null) {
+			return  normalQueue.consult().getIdShifth();
+		}else {
+			return"   ";
+		}
+		*/
+		if(currentNormalClient!=null) {
+			return currentNormalClient.getIdShifth();
+		}else {
+			return"   ";
+		}
 	}
 	public String priorityShift() {
-		return currentPriorityShift;
+		/*
+		if(priorityQueue.consult()!=null) {
+			return  priorityQueue.consult().getIdShifth();
+		}else {
+			return"   ";
+		}*/
+		if(currentPriorityClient!=null) {
+			return currentPriorityClient.getIdShifth();
+		}else {
+			return"   ";
+		}
 	}
 	public void nextNormalClient() {
-		normalQueue.dequeue();
-		currentPriorityShift = normalQueue.consult().getIdShifth();
+		currentNormalClient=normalQueue.dequeue();
 	}
 	public void nextPriorityClient() {
-		priorityQueue.dequeue();
-		currentPriorityShift = priorityQueue.consult().getIdShifth();
+		currentPriorityClient= priorityQueue.dequeue();
 	}
 	
 	public boolean undo() {

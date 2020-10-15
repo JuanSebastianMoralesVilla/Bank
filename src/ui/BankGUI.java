@@ -639,9 +639,11 @@ public class BankGUI {
 			alert.setTitle("Confirmation");
 			alert.setContentText("Shift assigned correcly");
 			alert.show();
-			if(normalClient==null || priorityClient==null) {
-				normalClient = bank.normalCurrent();
-				priorityClient = bank.priorityCurrent();
+			if(normalClient==null) {
+				nextuser(event);
+			}
+			if(priorityClient==null) {
+				nextUserP(event);
 			}
 		}else {
 			throw new UserDoesNotExistException();
@@ -693,37 +695,42 @@ public class BankGUI {
 
 	@FXML
 	void loadConsignation(ActionEvent event) throws IOException {
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterface.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		menuOptionsPane.getChildren().clear();
-		menuOptionsPane.setCenter(pane);
-		txtIDAccountConsignement.setText(normalClient.getTarjet().getIdAccount());
+		if(normalClient!=null) {
+			FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterface.fxml"));
+			fL.setController(this);
+			Parent pane;
+			pane = fL.load();
+			menuOptionsPane.getChildren().clear();
+			menuOptionsPane.setCenter(pane);
+			txtIDAccountConsignement.setText(normalClient.getTarjet().getIdAccount());
+		}
+		
 		
 	}
 
 	@FXML
 	void loadPayTarjet(ActionEvent event) throws IOException {
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterface.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		menuOptionsPane.getChildren().clear();
-		menuOptionsPane.setCenter(pane);
-		
+		if(normalClient!=null) {
+			FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterface.fxml"));
+			fL.setController(this);
+			Parent pane;
+			pane = fL.load();
+			menuOptionsPane.getChildren().clear();
+			menuOptionsPane.setCenter(pane);
+		}
 	}
 
 	@FXML
 	void loadRetirement(ActionEvent event) throws IOException {
-		FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterface.fxml"));
-		fL.setController(this);
-		Parent pane;
-		pane = fL.load();
-		menuOptionsPane.getChildren().clear();
-		menuOptionsPane.setCenter(pane);
-		txtAmount.setText(normalClient.getAmount()+"");
-		
+		if(normalClient!=null) {
+			FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterface.fxml"));
+			fL.setController(this);
+			Parent pane;
+			pane = fL.load();
+			menuOptionsPane.getChildren().clear();
+			menuOptionsPane.setCenter(pane);
+			txtAmount.setText(normalClient.getAmount()+"");
+		}
 	}
 
 	@FXML
@@ -807,7 +814,7 @@ public class BankGUI {
 			throw new ValuesIsEmptyException();
 		}
 		try {
-			double amount = normalClient.getAmount();
+			double amount = Double.parseDouble(txtRetirement.getText());
 			if(amount<=normalClient.getAmount()) {
 				bank.retirement(amount, normalClient.getId());
 				JOptionPane.showMessageDialog(null, "Retiro Confirmada");
@@ -1141,7 +1148,7 @@ public class BankGUI {
 			throw new ValuesIsEmptyException();
 		}
 		try {
-			double amount = priorityClient.getAmount();
+			double amount = Double.parseDouble(txtRetirementP.getText());
 			if(amount<=priorityClient.getAmount()) {
 				bank.retirement(amount, priorityClient.getId());
 				JOptionPane.showMessageDialog(null, "Retiro Confirmada");
@@ -1435,15 +1442,16 @@ public class BankGUI {
     //Next
     @FXML
     void nextuser(ActionEvent event) {
-    	
     	bank.nextNormalClient();
     	txtNormalQueue.setText(bank.normalShift());
+    	normalClient = bank.normalCurrent();
     }
     @FXML
     void nextUserP(ActionEvent event) {
     	
     	bank.nextPriorityClient();
     	txtPriorityQueue.setText(bank.priorityShift());
+    	priorityClient = bank.priorityCurrent();
     }
  	
 }
