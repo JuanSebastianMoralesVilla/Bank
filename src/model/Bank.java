@@ -22,7 +22,7 @@ public class Bank {
 	private Stack<String[]> undo;
 	private Stack<String[]> undoP;
 	private HashTable<String,Client> delatedClients;
-	
+	// construcutor
 	public Bank() {
 		nextShift = "A00";
 		nextShiftP = "A00";
