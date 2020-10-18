@@ -175,11 +175,17 @@ public class Bank {
 		Client client = null;
 		
 		try {
-			
-			if(currentNormalClient.getClient().getId().equals(idAccount)) {
-				client = currentNormalClient.getClient();
-			}else if(currentPriorityClient.getClient().getId().equals(idAccount)) {
-				client = currentPriorityClient.getClient();
+			if(currentNormalClient!=null) {
+				if(currentNormalClient.getClient().getId().equals(idAccount)) {
+					client = currentNormalClient.getClient();
+				}
+			}
+			if(currentPriorityClient!=null ) {
+				if(client ==null) {
+					if(currentPriorityClient.getClient().getId().equals(idAccount)) {
+						client = currentPriorityClient.getClient();
+					}
+				}
 			}
 			if(client.getTarjet().getType().equals(Tarjet.AHORROS)||client.getTarjet().getType().equals(Tarjet.BOTH)) {
 				double actualAmount = client.getTarjet().getAmount();
@@ -233,10 +239,17 @@ public class Bank {
 		String time=" ";
 		Client client = null;
 		try {
-			if(currentNormalClient.getClient().getId().equals(idAccount)) {
-				client = currentNormalClient.getClient();
-			}else if(currentPriorityClient.getClient().getId().equals(idAccount)) {
-				client = currentPriorityClient.getClient();
+			if(currentNormalClient!=null) {
+				if(currentNormalClient.getClient().getId().equals(idAccount)) {
+					client = currentNormalClient.getClient();
+				}
+			}
+			if(currentPriorityClient!=null) {
+				if(client!=null) {
+					if(currentPriorityClient.getClient().getId().equals(idAccount)) {
+						client = currentPriorityClient.getClient();
+					}
+				}
 			}
 			time = client.getTarjet().getDateUpdateCredit().toString();
 			client.getTarjet().setDateUpdateCredit(LocalDate.now());
