@@ -59,7 +59,6 @@ public class HashTable<T1, T2> implements IHashTable<T1,T2>{
 	@Override
 	public boolean remove(T1 key) {
 		int index = hashFuntion(key);
-		
 		if(index!=-1) {
 			if(table[index]!=null) {
 				if(!table[index].isDelated()) {

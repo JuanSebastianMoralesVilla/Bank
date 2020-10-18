@@ -20,6 +20,7 @@ public class Bank {
 	private Queue<Shift> normalQueue;
 	private PriorityQueue<Shift> priorityQueue;
 	private Stack<String[]> undo;
+	private Stack<String[]> undoP;
 	private HashTable<String,Client> delatedClients;
 	
 	public Bank() {
@@ -30,6 +31,7 @@ public class Bank {
 		priorityQueue = new PriorityQueue<Shift>();
 		delatedClients = new HashTable<String,Client>();
 		undo = new Stack<String[]>();
+		undoP = new Stack<String[]>();
 		Client client = new Client("Santiago","Hurtado","1234",0,Tarjet.AHORROS,"1234",1234,LocalDate.now());
 		clients.add("1234", client);
 		client = new Client("Sebastian","Morales","4321",1,Tarjet.AHORROS,"1234",1234,LocalDate.now());
@@ -38,26 +40,7 @@ public class Bank {
 		clients.add("56789", client);
 		client = new Client("Super","Aristi","98765",3,Tarjet.AHORROS,"1234",1234,LocalDate.now());
 		clients.add("98765", client);
-		client = searchUser("Sebastian","4321");
-		Shift shift = new Shift(nextShiftP,client);
-		priorityQueue.enqueue(shift);
-		nextShiftP();
-		client = searchUser("Esteban","56789");
-		 shift = new Shift(nextShiftP,client);
-		priorityQueue.enqueue(shift);
-		nextShiftP();
-		client = searchUser("Super","98765");
-		 shift = new Shift(nextShiftP,client);
-		priorityQueue.enqueue(shift);
-		nextShiftP();
-		client = searchUser("Esteban","56789");
-		 shift = new Shift(nextShiftP,client);
-		priorityQueue.enqueue(shift);
-		nextShiftP();
-		client = searchUser("Sebastian","4321");
-		 shift = new Shift(nextShiftP,client);
-		priorityQueue.enqueue(shift);
-		nextShiftP();
+		
 	}
 
 	public boolean addClient(String name,String lastName,String id,int priorityLevel,String type,String idAccount,double ammount) {
@@ -75,19 +58,18 @@ public class Bank {
 				
 			}
 		}
-		if(!save) {
-			//Thrown an message about this key don't exist
-		}
-		if(save) {
+		
+		/*if(save){
 			String[] addClient = {"addClient",id};
 			undo.push(addClient);
 		}
-		
+		*/
 		return save;
 	}
 	
-	public boolean assingShift(String name,String idClient) {
-		Client client = searchUser(name,idClient);
+	public boolean assingShift(String fullName,String idClient) {
+		
+		Client client = searchUser(fullName,idClient);
 		if(client!= null) {
 			
 			if(client.getPriorityLevel()==0) {
@@ -159,6 +141,14 @@ public class Bank {
 				if(actualAmount>=amount) {
 					actualAmount =  actualAmount-amount;
 					client.getTarjet().setAmount(actualAmount);
+					
+					if(client.getPriorityLevel()==0){
+						String[] retirement = {"retirement",amount+"",idAccount};
+						undo.push(retirement);
+					}else {
+						String[] retirement = {"retirement",amount+"",idAccount};
+						undoP.push(retirement);
+					}
 				}else {
 					Alert alert = new Alert(AlertType.ERROR);
 					alert.setTitle("ERROR");
@@ -176,8 +166,7 @@ public class Bank {
 			throw new NoUserException();
 		}
 		
-		String[] retirement = {"retirement",amount+"",idAccount};
-		undo.push(retirement);
+		
 		return client.getTarjet().getAmount();
 	}
 	
@@ -196,6 +185,13 @@ public class Bank {
 				double actualAmount = client.getTarjet().getAmount();
 				actualAmount += amount;
 				client.getTarjet().setAmount(actualAmount);
+				if(client.getPriorityLevel()==0){
+					String[] retirement = {"consignment",amount+"",idAccount};
+					undo.push(retirement);
+				}else {
+					String[] retirement = {"consignment",amount+"",idAccount};
+					undoP.push(retirement);
+				}
 			}else {
 				Alert alert = new Alert(AlertType.ERROR);
 				alert.setTitle("ERROR");
@@ -208,9 +204,6 @@ public class Bank {
 		}catch(NullPointerException e) {
 			throw new NoUserException();
 		}
-		String[] consignment = {"consignment",amount+"",idAccount};
-		undo.push(consignment);
-		
 		return client.getTarjet().getAmount();
 	}
 
@@ -218,10 +211,16 @@ public class Bank {
 		Client clientDelated = clients.search(idAccount);
 		boolean result =false;
 		if(clientDelated!= null) {
+			if(clientDelated.getPriorityLevel()==0){
+				String[] retirement = {"cancelAccount",idAccount};
+				undo.push(retirement);
+			}else {
+				String[] retirement = {"cancelAccount",idAccount};
+				undoP.push(retirement);
+			}
 			clients.remove(idAccount);
 			result = true;
-			String[] cancelAccount = {"cancelAccount",idAccount};
-			undo.push(cancelAccount);
+			
 			clientDelated.setReason(reason);
 			delatedClients.add(idAccount, clientDelated);
 			
@@ -246,16 +245,28 @@ public class Bank {
 			
 		}
 		if(result) {
-			String[] cancelAccount = {"payTarjet",idAccount,time};
-			undo.push(cancelAccount);
+			if(client.getPriorityLevel()==0){
+				String[] retirement = {"payTarjet",idAccount,time};
+				undo.push(retirement);
+			}else {
+				String[] retirement = {"payTarjet",idAccount,time};
+				undoP.push(retirement);
+			}
 		}
 		return result;
 	}
 
-	public Client searchUser(String name, String id) {
+	public Client searchUser(String fullName, String id) {
+		String aux[] = fullName.split(" ");
+		String lastName = " ";
+		if(aux.length>1) {
+			lastName = aux[1];
+		}
+		String name = aux[0];
+	
 		Client client = clients.search(id);
 		if(client!= null) {
-			if(client.getName().equals(name)) {
+			if(client.getName().equals(name)&& client.getLastName().equals(lastName)) {
 				return client;
 			}
 		}	
@@ -354,9 +365,15 @@ public class Bank {
 		currentPriorityClient= priorityQueue.dequeue();
 	}
 	
-	public boolean undo() {
+	public boolean undo(boolean priority) {
 		boolean result = false;
-		String[] actualProcess = undo.pop();
+		String[] actualProcess;
+		if(priority) {
+			actualProcess = undoP.pop();
+		}else {
+			actualProcess = undo.pop();
+		}
+		
 		if(actualProcess!=null) {
 			Client client;
 			double amount=0;
@@ -373,7 +390,7 @@ public class Bank {
 			case "consignment":
 				amount = Double.parseDouble(actualProcess[1]);
 				client = clients.search(actualProcess[2]);
-				amount -= client.getAmount();
+				amount = client.getAmount()-amount;
 				client.getTarjet().setAmount(amount);
 				break;
 			case "cancelAccount":
@@ -382,7 +399,7 @@ public class Bank {
 				break;
 			case "payTarjet":
 				client = clients.search(actualProcess[1]);
-				client.getTarjet().setDateUpdateCredit(LocalDate.parse(actualProcess[1]));
+				client.getTarjet().setDateUpdateCredit(LocalDate.parse(actualProcess[2]));
 				break;
 			}
 		}
