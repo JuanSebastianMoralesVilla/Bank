@@ -21,7 +21,7 @@ public class Bank {
 	private PriorityQueue<Shift> priorityQueue;
 	private Stack<String[]> undo;
 	private HashTable<String,Client> delatedClients;
-	
+	// construcutor
 	public Bank() {
 		nextShift = "A00";
 		nextShiftP = "A00";
