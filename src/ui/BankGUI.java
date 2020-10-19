@@ -356,12 +356,20 @@ public class BankGUI {
 		String name = txtName.getText();
 		String lastname = txtLastName.getText();
 		String id = txtIDaddUser.getText();
-		String clientType  =cbLevelPriorirty.getValue() ;  // nivel d prioridad desde 0 hasta 3.
+		String tarjetType  = " ";  // nivel d prioridad desde 0 hasta 3.
 		
 		boolean tarjetAhorros= tgTarjetAhorroCreate.isSelected();
 		boolean tarjetCredito= tgTarjetCreditCreate.isSelected();
 		if((!tarjetAhorros && !tarjetCredito) || txtIdTarjet.getText()==" ") {
 			throw new ValuesIsEmptyException();
+		}else {
+			if(tarjetAhorros&&tarjetCredito) {
+				tarjetType = Tarjet.BOTH;
+			}else if(tarjetAhorros){
+				tarjetType = Tarjet.AHORROS;
+			}else {
+				tarjetType = Tarjet.CREDIT;
+			}
 		}
 		try {
 			
@@ -379,7 +387,7 @@ public class BankGUI {
 		}
 		Double amountAccount = Double.parseDouble(txtamountCreate.getText());
 		int level = Integer.parseInt(cbLevelPriorirty.getValue());
-		boolean confirm = bank.addClient(name, lastname, id,level, clientType, idTarjet, amountAccount);
+		boolean confirm = bank.addClient(name, lastname, id,level, tarjetType, idTarjet, amountAccount);
 		
 		
 		FXMLLoader fL = new FXMLLoader(getClass().getResource("turnoInterface.fxml"));
@@ -708,40 +716,44 @@ public class BankGUI {
 	@FXML
 	void loadConsignation(ActionEvent event) throws IOException {
 		if(normalClient!=null) {
-			FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterface.fxml"));
-			fL.setController(this);
-			Parent pane;
-			pane = fL.load();
-			menuOptionsPane.getChildren().clear();
-			menuOptionsPane.setCenter(pane);
-			txtIDAccountConsignement.setText(normalClient.getTarjet().getIdAccount());
+			if(!normalClient.getTarjet().getType().equals(Tarjet.CREDIT)) {
+				FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterface.fxml"));
+				fL.setController(this);
+				Parent pane;
+				pane = fL.load();
+				menuOptionsPane.getChildren().clear();
+				menuOptionsPane.setCenter(pane);
+				txtIDAccountConsignement.setText(normalClient.getTarjet().getIdAccount());
+			}
 		}
-		
-		
 	}
 
 	@FXML
 	void loadPayTarjet(ActionEvent event) throws IOException {
 		if(normalClient!=null) {
-			FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterface.fxml"));
-			fL.setController(this);
-			Parent pane;
-			pane = fL.load();
-			menuOptionsPane.getChildren().clear();
-			menuOptionsPane.setCenter(pane);
+			if(!normalClient.getTarjet().getType().equals(Tarjet.AHORROS)) {
+				FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterface.fxml"));
+				fL.setController(this);
+				Parent pane;
+				pane = fL.load();
+				menuOptionsPane.getChildren().clear();
+				menuOptionsPane.setCenter(pane);
+			}
 		}
 	}
 
 	@FXML
 	void loadRetirement(ActionEvent event) throws IOException {
 		if(normalClient!=null) {
-			FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterface.fxml"));
-			fL.setController(this);
-			Parent pane;
-			pane = fL.load();
-			menuOptionsPane.getChildren().clear();
-			menuOptionsPane.setCenter(pane);
-			txtAmount.setText(normalClient.getAmount()+"");
+			if(!normalClient.getTarjet().getType().equals(Tarjet.CREDIT)) {
+				FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterface.fxml"));
+				fL.setController(this);
+				Parent pane;
+				pane = fL.load();
+				menuOptionsPane.getChildren().clear();
+				menuOptionsPane.setCenter(pane);
+				txtAmount.setText(normalClient.getAmount()+"");
+			}
 		}
 	}
 
@@ -1211,47 +1223,46 @@ public class BankGUI {
 	@FXML
 	void loadConsignationP(ActionEvent event) throws IOException {
 		if(priorityClient!=null) {
-			FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterfaceP.fxml"));
-			fL.setController(this);
-			Parent pane;
-			pane = fL.load();
-			menuOptionsPaneP.getChildren().clear();
-			menuOptionsPaneP.setCenter(pane);
-			
-			txtIDAccountConsignementP.setText(priorityClient.getTarjet().getIdAccount());
+			if(!priorityClient.getTarjet().getType().equals(Tarjet.CREDIT)) {
+				FXMLLoader fL = new FXMLLoader(getClass().getResource("ConsignmentInterfaceP.fxml"));
+				fL.setController(this);
+				Parent pane;
+				pane = fL.load();
+				menuOptionsPaneP.getChildren().clear();
+				menuOptionsPaneP.setCenter(pane);
+				
+				txtIDAccountConsignementP.setText(priorityClient.getTarjet().getIdAccount());
+			}
 		}
-		
-		
 	}
 
 	@FXML
 	void loadPayTarjetP(ActionEvent event) throws IOException {
 		if(priorityClient!=null) {
-			FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterfaceP.fxml"));
-			fL.setController(this);
-			Parent pane;
-			pane = fL.load();
-			menuOptionsPaneP.getChildren().clear();
-			menuOptionsPaneP.setCenter(pane);
+			if(!priorityClient.getTarjet().getType().equals(Tarjet.AHORROS)) {
+				FXMLLoader fL = new FXMLLoader(getClass().getResource("PayTarjetInterfaceP.fxml"));
+				fL.setController(this);
+				Parent pane;
+				pane = fL.load();
+				menuOptionsPaneP.getChildren().clear();
+				menuOptionsPaneP.setCenter(pane);
+			}
 		}
-		
-		
 	}
 
 	@FXML
 	void loadRetirementP(ActionEvent event) throws IOException {
 		if(priorityClient!=null) {
-			FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterfaceP.fxml"));
-			fL.setController(this);
-			Parent pane;
-			pane = fL.load();
-			menuOptionsPaneP.getChildren().clear();
-			menuOptionsPaneP.setCenter(pane);
-			
-			txtAmountP.setText(priorityClient.getAmount()+"");
+			if(!priorityClient.getTarjet().getType().equals(Tarjet.CREDIT)) {
+				FXMLLoader fL = new FXMLLoader(getClass().getResource("RetirementInterfaceP.fxml"));
+				fL.setController(this);
+				Parent pane;
+				pane = fL.load();
+				menuOptionsPaneP.getChildren().clear();
+				menuOptionsPaneP.setCenter(pane);
+				txtAmountP.setText(priorityClient.getAmount()+"");
+			}
 		}
-		
-		
 	}
     
     
